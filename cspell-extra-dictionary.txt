@@ -15,7 +15,6 @@ dockerfiles
 DTO
 DTOS
 endtime
-getswell
 Gmailerrorred
 GSSP
 haircheck
@@ -32,6 +31,7 @@ nitropack
 nocheck
 preinstall
 PTSD
+pulumi
 radash
 rolldown
 screenshare

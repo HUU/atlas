@@ -1,3 +1,5 @@
+set -e
+
 pnpm build
 pnpm lint
 
