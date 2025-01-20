@@ -2,4 +2,4 @@ pnpm build
 pnpm lint
 
 (cd libraries/database && pnpm db:generateMigrationsAndVerifyNoChanges)
-# TODO: config enforcement
+# TODO: automatically check .env config schema

@@ -2,6 +2,7 @@
 
 ## TODO
 
+* Build time config schema enforcement
 * Dotenv Vault extension for safely sealing new production secrets ("FireSafe")
 * Expo integration for Mobile
 * Docker + GCP via Pulumi for deployment
