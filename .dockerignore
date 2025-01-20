@@ -1,0 +1,9 @@
+# Dockerignore used in most builds as the root of the
+# monorepo is the root of the build context.
+**/node_modules
+**/build
+**/.next
+.git
+.env*
+!.env.vault
+!.env.keys

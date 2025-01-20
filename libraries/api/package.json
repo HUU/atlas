@@ -1,0 +1,27 @@
+{
+  "name": "@atlas/api",
+  "description": "REST API contract used for mobile<->backend communication.",
+  "version": "0.0.0",
+  "dependencies": {
+    "@ts-rest/core": "3.51.0",
+    "zod": "3.24.1"
+  },
+  "devDependencies": {
+    "vitest": "3.0.2"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./build/src/index.js"
+    }
+  },
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf build",
+    "depcheck": "depcheck .",
+    "lint": "eslint \"src/**/*.{js,ts}\" \"*.ts\"",
+    "test": "vitest run"
+  },
+  "type": "module"
+}

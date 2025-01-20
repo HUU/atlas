@@ -1,0 +1,78 @@
+{
+	"folders": [
+		{
+      "name": "Root",
+			"path": "."
+		},
+    {
+      "name": "Web",
+      "path": "apps/web"
+    },
+    {
+      "name": "Mobile",
+      "path": "apps/mobile"
+    },
+    {
+      "name": "Firesafe",
+      "path": "apps/firesafe"
+    },
+    {
+      "name": "Common",
+			"path": "libraries/common"
+		},
+    {
+      "name": "API",
+			"path": "libraries/api"
+		},
+    {
+      "name": "Database",
+			"path": "libraries/database"
+		},
+    {
+      "name": "DotEnv-EX",
+      "path": "libraries/dotenv-ex"
+    }
+	],
+	"settings": {
+    "eslint.workingDirectories": [ "libraries/*", "apps/*" ],
+    "search.exclude": {
+      "**/pnpm-lock.yaml": true
+    },
+    "editor.rulers": [80],
+    "files.exclude": {
+      "**/.vinxi": true,
+      "**/.output": true,
+      "**/.turbo": true,
+      "**/.next": true,
+      "**/.swc": true,
+      "**/build": true,
+      "**/node_modules": true,
+      "**/*.tsbuildinfo": true,
+      "**/app.config.timestamp*": true
+    },
+    "[markdown]": {
+      "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+	},
+  "extensions": {
+    "recommendations": ["vitest.explorer", "dbaeumer.vscode-eslint", "github.vscode-github-actions", "streetsidesoftware.code-spell-checker", "DavidAnson.vscode-markdownlint", "esbenp.prettier-vscode"]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "type": "shell",
+        "command": "pnpm build",
+        "group": "build",
+        "label": "monorepo: build",
+        "detail": "turbo build"
+      }
+    ]
+  }
+}

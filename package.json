@@ -1,0 +1,51 @@
+{
+  "name": "prototype",
+  "version": "0.0.0",
+  "//": "devDependencies are for the whole monorepo",
+  "devDependencies": {
+    "@eslint/compat": "1.2.5",
+    "@types/bcrypt": "5.0.0",
+    "@types/node": "22.10.5",
+    "cspell": "6.31.1",
+    "depcheck": "1.4.3",
+    "dotenv-vault": "1.23.3",
+    "eslint": "9.18.0",
+    "eslint-config-love": "116.0.0",
+    "eslint-config-prettier": "10.0.1",
+    "eslint-plugin-prettier": "5.2.2",
+    "husky": "8.0.3",
+    "markdownlint": "0.29.0",
+    "markdownlint-cli": "0.35.0",
+    "prettier": "3.4.2",
+    "prettier-plugin-jsdoc": "1.3.2",
+    "prettier-plugin-organize-imports": "4.1.0",
+    "syncpack": "13.0.0",
+    "tsconfig-paths": "4.2.0",
+    "turbo": "2.3.3",
+    "typescript": "5.7.3",
+    "typescript-eslint": "8.19.1",
+    "vitest": "3.0.2"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@9.15.3",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "clean": "turbo clean",
+    "fix": "turbo lint -- --fix && pnpm root:eslint --fix && pnpm prettier --write '**/*.(yml|json)' .syncpackrc && pnpm syncpack format",
+    "lint": "pnpm lint:eslint && pnpm root:eslint && pnpm lint:spelling && pnpm lint:markdown && pnpm lint:depcheck && pnpm lint:syncpack && pnpm lint:json",
+    "lint:depcheck": "turbo depcheck",
+    "lint:eslint": "turbo lint -- --max-warnings=0",
+    "lint:json": "prettier --check '**/*.(yml|json)' .syncpackrc",
+    "lint:markdown": "markdownlint .",
+    "lint:spelling": "cspell . --gitignore --no-progress",
+    "lint:syncpack": "syncpack lint",
+    "preinstall": "npx only-allow pnpm",
+    "root:eslint": "eslint '*.{ts,js,mjs}' --max-warnings=0",
+    "test": "turbo test",
+    "prepare": "husky install"
+  }
+}

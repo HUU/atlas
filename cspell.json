@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "dictionaryDefinitions": [
+    {
+      "name": "extra-dictionary",
+      "path": "./cspell-extra-dictionary.txt",
+      "addWords": true
+    }
+  ],
+  "dictionaries": ["extra-dictionary"],
+  "ignorePaths": [
+    "/cspell-extra-dictionary.txt",
+    "pnpm-lock.yaml",
+    "packages.json",
+    "*-task-definition.json",
+    "*Dockerfile",
+    "*.code-workspace",
+    "docker-compose.yml",
+    "*.otf",
+    "*.woff",
+    "*.woff2",
+    "*.ttf",
+    "*.svg",
+    "*.mp4"
+  ]
+}

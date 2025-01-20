@@ -1,0 +1,2 @@
+ignores: ["@vitejs/plugin-react"]
+ignore-patterns: [".vinxi/","app.config.timestamp*"]

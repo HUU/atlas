@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    /* Compiler Output Control */
+    "composite": false,
+    "declaration": true,
+    "declarationMap": true,
+    "noEmitOnError": true,
+    "pretty": true,
+    "sourceMap": true,
+    "inlineSources": false,
+    "target": "ES2022",
+    "lib": ["es2022", "esnext.asynciterable"],
+    "jsx": "react-jsx",
+    "allowJs": true,
+
+    /* Module Handling */
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strictNullChecks": true,
+
+    /* Stylistic Rules and Enforcement */
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "allowUnusedLabels": false,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+
+    /* Developer Niceties */
+    "preserveWatchOutput": true
+  }
+}

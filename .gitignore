@@ -1,0 +1,32 @@
+# misc
+.DS_Store
+
+# build output
+dist
+.next
+.vercel
+build/
+artifacts/
+**/cypress/videos
+**/cypress/screenshots
+.turbo
+.swc
+.vinxi
+.output
+tsconfig.tsbuildinfo
+**/app.config.timestamp_*
+
+# dependencies
+node_modules
+.pnpm-store/
+
+# Editors
+**/.idea
+**/.#*
+.vscode
+
+# Environment Variable (dotenv) files
+.env*
+.flaskenv*
+!.env.project
+!.env.vault

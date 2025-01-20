@@ -1,0 +1,29 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    "tsconfig.base.json",
+    "vitest.config.base.ts",
+    "eslint.config.mjs",
+    ".prettierrc.js",
+    ".npmrc"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["build/**", ".output/**"]
+    },
+    "test": {
+      "cache": false,
+      "outputs": ["build/coverage/**"]
+    },
+    "clean": {
+      "cache": false
+    },
+    "lint": {
+      "outputs": []
+    },
+    "depcheck": {
+      "outputs": []
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "dependencyTypes": [
+    "dev",
+    "overrides",
+    "peer",
+    "pnpmOverrides",
+    "prod",
+    "resolutions"
+  ],
+  "semverGroups": [
+    {
+      "label": "use exact version numbers",
+      "packages": ["**"],
+      "dependencyTypes": [
+        "dev",
+        "overrides",
+        "peer",
+        "pnpmOverrides",
+        "prod",
+        "resolutions"
+      ],
+      "dependencies": ["**"],
+      "range": ""
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@atlas/dotenv-ex",
+  "description": "Extensions and helpers for dotenv and dotenv-vault.",
+  "version": "0.0.0",
+  "dependencies": {
+    "dotenv": "16.4.7",
+    "find-config": "1.0.0"
+  },
+  "devDependencies": {
+    "@types/find-config": "1.0.4",
+    "vitest": "3.0.2"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./build/src/index.js"
+    }
+  },
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf build",
+    "depcheck": "depcheck .",
+    "lint": "eslint \"src/**/*.{js,ts}\" \"*.ts\"",
+    "test": "vitest run"
+  },
+  "type": "module"
+}
