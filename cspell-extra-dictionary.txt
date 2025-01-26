@@ -15,6 +15,7 @@ dockerfiles
 DTO
 DTOS
 endtime
+firesafe
 Gmailerrorred
 GSSP
 haircheck
@@ -36,6 +37,7 @@ radash
 rolldown
 screenshare
 scrollbars
+statusz
 superjson
 swipeable
 syncpack
