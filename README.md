@@ -3,9 +3,15 @@
 ## TODO
 
 * Build time config schema enforcement
-* Dotenv Vault extension for safely sealing new production secrets ("FireSafe")
-* Expo integration for Mobile
 * Docker + GCP via Pulumi for deployment
+* GitHub CI/CD
+* Web libraries (forms, dates, tanstack query, component library)
+* Mobile libraries (component library)
+* APM (crashes)
+* Metrics+Logs
+* Product Analytics
+* Google and Apple Authentication
+* Switching environments inside the mobile app
 
 ## Open Questions
 

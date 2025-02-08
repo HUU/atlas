@@ -8,8 +8,8 @@
     "pretty": true,
     "sourceMap": true,
     "inlineSources": false,
-    "target": "ES2022",
-    "lib": ["es2022", "esnext.asynciterable"],
+    "target": "ESNext",
+    "lib": ["ESNext", "esnext.asynciterable"],
     "jsx": "react-jsx",
     "allowJs": true,
 

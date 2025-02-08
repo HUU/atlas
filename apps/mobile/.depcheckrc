@@ -1,0 +1,1 @@
+ignores: ["expo-*", "@expo/*", "@react-navigation/*", "react-dom", "react-native-*", "@babel/*", "@types/jest", "react-test-renderer", "@types/react-test-renderer"]

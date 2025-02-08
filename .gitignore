@@ -1,23 +1,24 @@
-# misc
+# MacOS
 .DS_Store
+*.pem
 
 # build output
-dist
-.next
-.vercel
+dist/
 build/
 artifacts/
-**/cypress/videos
-**/cypress/screenshots
 .turbo
-.swc
 .vinxi
 .output
 .nitro
-tsconfig.tsbuildinfo
-**/app.config.timestamp_*
+.expo/
+web-build/
+*.tsbuildinfo
 
-# dependencies
+# we use Expo CNG
+android/
+ios/
+
+# Dependencies
 node_modules
 .pnpm-store/
 
@@ -26,5 +27,24 @@ node_modules
 **/.#*
 .vscode
 
-# Environment Variable (dotenv) files
+# Config
 .env.keys
+expo-env.d.ts
+tsconfig.tsbuildinfo
+**/app.config.timestamp_*
+
+# Mobile > Native
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Mobile > Metro
+.metro-health-check*
+
+# Debug Outputs
+npm-debug.*
+yarn-debug.*
+yarn-error.*

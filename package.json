@@ -40,7 +40,7 @@
     "lint:depcheck": "turbo depcheck",
     "lint:eslint": "turbo lint -- --max-warnings=0",
     "lint:json": "prettier --check '**/*.(yml|json)' .syncpackrc",
-    "lint:markdown": "markdownlint-cli2 '**/*.md' '#**/node_modules'",
+    "lint:markdown": "markdownlint-cli2 '**/*.md' '#**/node_modules' '#**/.expo'",
     "lint:spelling": "cspell . --gitignore --no-progress",
     "lint:syncpack": "syncpack lint",
     "preinstall": "npx only-allow pnpm",
