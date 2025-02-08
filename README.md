@@ -2,16 +2,21 @@
 
 ## TODO
 
+### Code Complete
+
 * Build time config schema enforcement
-* Docker + GCP via Pulumi for deployment
-* GitHub CI/CD
 * Web libraries (forms, dates, tanstack query, component library)
 * Mobile libraries (component library)
+* Google and Apple Authentication
+
+### Production Readiness
+
 * APM (crashes)
 * Metrics+Logs
 * Product Analytics
-* Google and Apple Authentication
 * Switching environments inside the mobile app
+* Docker + GCP via Pulumi for deployment
+* GitHub CI/CD
 
 ## Open Questions
 

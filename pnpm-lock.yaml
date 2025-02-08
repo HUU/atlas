@@ -77,6 +77,12 @@ importers:
 
   apps/mobile:
     dependencies:
+      '@atlas/api':
+        specifier: workspace:*
+        version: link:../../libraries/api
+      '@atlas/common':
+        specifier: workspace:*
+        version: link:../../libraries/common
       '@expo/vector-icons':
         specifier: 14.0.2
         version: 14.0.2
@@ -86,6 +92,9 @@ importers:
       '@react-navigation/native':
         specifier: 7.0.14
         version: 7.0.14(react-native@0.76.7(@babel/core@7.25.2)(@babel/preset-env@7.26.8(@babel/core@7.25.2))(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
+      '@ts-rest/core':
+        specifier: 3.51.0
+        version: 3.51.0(@types/node@22.10.5)(zod@3.24.1)
       expo:
         specifier: 52.0.31
         version: 52.0.31(@babel/core@7.25.2)(@babel/preset-env@7.26.8(@babel/core@7.25.2))(@expo/metro-runtime@4.0.1(react-native@0.76.7(@babel/core@7.25.2)(@babel/preset-env@7.26.8(@babel/core@7.25.2))(@types/react@18.3.12)(react@18.3.1)))(react-native-webview@13.12.5(react-native@0.76.7(@babel/core@7.25.2)(@babel/preset-env@7.26.8(@babel/core@7.25.2))(@types/react@18.3.12)(react@18.3.1))(react@18.3.1))(react-native@0.76.7(@babel/core@7.25.2)(@babel/preset-env@7.26.8(@babel/core@7.25.2))(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
@@ -106,7 +115,7 @@ importers:
         version: 7.0.5(expo@52.0.31(@babel/core@7.25.2)(@babel/preset-env@7.26.8(@babel/core@7.25.2))(@expo/metro-runtime@4.0.1(react-native@0.76.7(@babel/core@7.25.2)(@babel/preset-env@7.26.8(@babel/core@7.25.2))(@types/react@18.3.12)(react@18.3.1)))(react-native-webview@13.12.5(react-native@0.76.7(@babel/core@7.25.2)(@babel/preset-env@7.26.8(@babel/core@7.25.2))(@types/react@18.3.12)(react@18.3.1))(react@18.3.1))(react-native@0.76.7(@babel/core@7.25.2)(@babel/preset-env@7.26.8(@babel/core@7.25.2))(@types/react@18.3.12)(react@18.3.1))(react@18.3.1))(react-native@0.76.7(@babel/core@7.25.2)(@babel/preset-env@7.26.8(@babel/core@7.25.2))(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
       expo-router:
         specifier: 4.0.17
-        version: 4.0.17(r5w7jrby7pozozapncjrd2tite)
+        version: 4.0.17(8874e5bc8443a64227dc9cbe6b2c26e0)
       expo-splash-screen:
         specifier: 0.29.21
         version: 0.29.21(expo@52.0.31(@babel/core@7.25.2)(@babel/preset-env@7.26.8(@babel/core@7.25.2))(@expo/metro-runtime@4.0.1(react-native@0.76.7(@babel/core@7.25.2)(@babel/preset-env@7.26.8(@babel/core@7.25.2))(@types/react@18.3.12)(react@18.3.1)))(react-native-webview@13.12.5(react-native@0.76.7(@babel/core@7.25.2)(@babel/preset-env@7.26.8(@babel/core@7.25.2))(@types/react@18.3.12)(react@18.3.1))(react@18.3.1))(react-native@0.76.7(@babel/core@7.25.2)(@babel/preset-env@7.26.8(@babel/core@7.25.2))(@types/react@18.3.12)(react@18.3.1))(react@18.3.1))
@@ -149,6 +158,9 @@ importers:
       react-native-webview:
         specifier: 13.12.5
         version: 13.12.5(react-native@0.76.7(@babel/core@7.25.2)(@babel/preset-env@7.26.8(@babel/core@7.25.2))(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
+      zod:
+        specifier: 3.24.1
+        version: 3.24.1
     devDependencies:
       '@babel/core':
         specifier: 7.25.2
@@ -14777,7 +14789,7 @@ snapshots:
     dependencies:
       invariant: 2.2.4
 
-  expo-router@4.0.17(r5w7jrby7pozozapncjrd2tite):
+  expo-router@4.0.17(8874e5bc8443a64227dc9cbe6b2c26e0):
     dependencies:
       '@expo/metro-runtime': 4.0.1(react-native@0.76.7(@babel/core@7.25.2)(@babel/preset-env@7.26.8(@babel/core@7.25.2))(@types/react@18.3.12)(react@18.3.1))
       '@expo/server': 0.5.1(typescript@5.7.3)
