@@ -2,8 +2,7 @@
 # monorepo is the root of the build context.
 **/node_modules
 **/build
-**/.next
+**/.vinxi
+**/.output
+**/.nitro
 .git
-.env*
-!.env.vault
-!.env.keys

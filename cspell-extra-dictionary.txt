@@ -12,6 +12,8 @@ disaggregate
 disaggregates
 dockerfile
 dockerfiles
+dotenv
+dotenvx
 DTO
 DTOS
 endtime
@@ -19,6 +21,7 @@ firesafe
 Gmailerrorred
 GSSP
 haircheck
+healthz
 homescreens
 hookform
 knex

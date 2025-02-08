@@ -6,7 +6,7 @@
     "@atlas/api": "workspace:*",
     "@atlas/common": "workspace:*",
     "@atlas/database": "workspace:*",
-    "@atlas/dotenv-ex": "workspace:*",
+    "@dotenvx/dotenvx": "1.35.0",
     "@tanstack/react-router": "1.95.3",
     "@tanstack/start": "1.95.3",
     "@ts-rest/core": "3.51.0",
@@ -32,6 +32,7 @@
     "depcheck": "depcheck .",
     "dev": "vinxi dev",
     "lint": "tsc && pnpm eslint \"src/**/*.{js,ts}\" \"*.ts\"",
+    "set-secret": "dotenvx set",
     "start": "vinxi start",
     "test": "vitest run"
   },

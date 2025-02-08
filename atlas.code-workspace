@@ -13,10 +13,6 @@
       "path": "apps/mobile"
     },
     {
-      "name": "Firesafe",
-      "path": "apps/firesafe"
-    },
-    {
       "name": "Common",
 			"path": "libraries/common"
 		},
@@ -27,14 +23,13 @@
     {
       "name": "Database",
 			"path": "libraries/database"
-		},
-    {
-      "name": "DotEnv-EX",
-      "path": "libraries/dotenv-ex"
-    }
+		}
 	],
 	"settings": {
     "eslint.workingDirectories": [ "libraries/*", "apps/*" ],
+    "eslint.rules.customizations": [
+      { "rule": "prettier/prettier", "severity": "off" }
+    ],
     "search.exclude": {
       "**/pnpm-lock.yaml": true
     },

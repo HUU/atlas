@@ -2,7 +2,7 @@
 
 import { envNamesToConfigNames } from '@atlas/common';
 import { db, migrationsPath } from '@atlas/database';
-import { configureDotEnvForMonorepo } from '@atlas/dotenv-ex';
+import { config } from '@dotenvx/dotenvx';
 import { sql } from 'drizzle-orm';
 import { migrate } from 'drizzle-orm/node-postgres/migrator';
 import { globSync } from 'glob';
@@ -16,12 +16,12 @@ function crash(error: unknown): void {
 
 export default (): void => {
   try {
-    configureDotEnvForMonorepo();
+    config();
     APP_CONFIG.bindTo(envNamesToConfigNames(process.env));
     db.execute(sql`select 1`)
       .execute()
-      .then((result) => {
-        logger.info(result);
+      .then(() => {
+        logger.info('Successfully connected to the database!');
       });
 
     let realMigrationsPath = migrationsPath;

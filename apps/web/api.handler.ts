@@ -1,6 +1,7 @@
-import { contract } from '@atlas/api';
-import { fetchRequestHandler, tsr } from '@ts-rest/serverless/fetch';
+import contract from '@atlas/api';
+import { fetchRequestHandler } from '@ts-rest/serverless/fetch';
 import { defineEventHandler, toWebRequest } from 'vinxi/http';
+import router from './src/api';
 
 export default defineEventHandler(async (event) => {
   const request = toWebRequest(event);
@@ -9,13 +10,7 @@ export default defineEventHandler(async (event) => {
   return await fetchRequestHandler({
     request,
     contract,
-    router: tsr.router(contract, {
-      auth: {
-        login: async (_request) => {
-          return { status: 200, body: { name: 'hello' } };
-        },
-      },
-    }),
+    router,
     options: {
       basePath: '/api',
     },

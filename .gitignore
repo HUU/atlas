@@ -27,7 +27,4 @@ node_modules
 .vscode
 
 # Environment Variable (dotenv) files
-.env*
-.flaskenv*
-!.env.project
-!.env.vault
+.env.keys
