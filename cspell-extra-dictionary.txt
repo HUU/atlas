@@ -24,6 +24,7 @@ haircheck
 healthz
 homescreens
 hookform
+interruptible
 knex
 knexfile
 kyseley

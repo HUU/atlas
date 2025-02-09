@@ -34,17 +34,16 @@
   "scripts": {
     "build": "turbo build",
     "clean": "turbo clean",
-    "fix": "turbo lint -- --fix && pnpm root:eslint --fix && pnpm prettier --write '**/*.(yml|json)' .syncpackrc && pnpm syncpack format",
-    "lint": "pnpm lint:eslint && pnpm root:eslint && pnpm lint:spelling && pnpm lint:markdown && pnpm lint:depcheck && pnpm lint:syncpack && pnpm lint:json",
-    "lint:depcheck": "turbo depcheck",
-    "lint:eslint": "turbo lint -- --max-warnings=0",
+    "dev": "turbo watch dev --ui tui",
+    "fix": "syncpack format && pnpm turbo lint lint:root -- --fix && pnpm prettier --write '**/*.(yml|json)' .syncpackrc",
+    "lint": "turbo lint lint:json lint:markdown lint:spelling lint:syncpack lint:root",
     "lint:json": "prettier --check '**/*.(yml|json)' .syncpackrc",
     "lint:markdown": "markdownlint-cli2 '**/*.md' '#**/node_modules' '#**/.expo'",
+    "lint:root": "eslint '*.{ts,js,mjs}' --max-warnings=0",
     "lint:spelling": "cspell . --gitignore --no-progress",
     "lint:syncpack": "syncpack lint",
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
-    "root:eslint": "eslint '*.{ts,js,mjs}' --max-warnings=0",
     "test": "turbo test"
   }
 }
