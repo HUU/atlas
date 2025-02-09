@@ -7,7 +7,7 @@
 * Build time config schema enforcement
 * Web libraries (forms, dates, tanstack query, component library)
 * Mobile libraries (component library)
-* Google and Apple Authentication
+* Authentication overall (API OAuth, Web+Mobile using Google and Apple authentication)
 
 ### Production Readiness
 
