@@ -6,7 +6,7 @@ export const configSchema = CONFIG_PROVIDER.partialSchema({
   postgresPort: z.coerce.number(),
   postgresUser: z.string(),
   postgresPassword: z.string(),
-  postgresDatabase: z.string(),
+  postgresDb: z.string(),
 });
 
 export const DATABASE_CONFIG = CONFIG_PROVIDER.readerFor(configSchema);

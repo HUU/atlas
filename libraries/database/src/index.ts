@@ -4,7 +4,7 @@ import { DATABASE_CONFIG } from './config';
 
 const dbSingleton = new GlobalJustInTimeSingleton('DATABASE', () =>
   drizzle(
-    `postgres://${DATABASE_CONFIG.postgresUser}:${DATABASE_CONFIG.postgresPassword}@${DATABASE_CONFIG.postgresHost}:${DATABASE_CONFIG.postgresPort}/${DATABASE_CONFIG.postgresDatabase}`,
+    `postgres://${DATABASE_CONFIG.postgresUser}:${DATABASE_CONFIG.postgresPassword}@${DATABASE_CONFIG.postgresHost}:${DATABASE_CONFIG.postgresPort}/${DATABASE_CONFIG.postgresDb}`,
   ),
 );
 
