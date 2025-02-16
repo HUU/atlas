@@ -6,5 +6,5 @@ export TURBO_NO_UPDATE_NOTIFIER=true
 pnpm build
 pnpm lint
 
-(cd libraries/database && pnpm db:generateMigrationsAndVerifyNoChanges)
+(cd libraries/database && pnpm --silent db:generateMigrationsAndVerifyNoChanges)
 # TODO: automatically check .env config schema
