@@ -104,6 +104,20 @@ export default [
 
       '@typescript-eslint/prefer-destructuring': 'off',
 
+      '@typescript-eslint/strict-boolean-expressions': [
+        'error',
+        {
+          allowAny: false,
+          allowNullableBoolean: true,
+          allowNullableEnum: false,
+          allowNullableNumber: false,
+          allowNullableObject: true,
+          allowNullableString: true,
+          allowNumber: false,
+          allowString: true,
+        },
+      ],
+
       '@typescript-eslint/no-unused-vars': [
         'error',
         {
