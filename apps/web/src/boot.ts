@@ -6,14 +6,15 @@ import { config } from '@dotenvx/dotenvx';
 import { sql } from 'drizzle-orm';
 import { migrate } from 'drizzle-orm/node-postgres/migrator';
 import { globSync } from 'glob';
-import { APP_CONFIG } from './src/config';
-import logger from './src/logger';
+import { APP_CONFIG } from './config';
+import { logger } from './logger';
 
 function crash(error: unknown): void {
   logger.error(error);
   process.exit(1);
 }
 
+// eslint-disable-next-line import/no-default-export -- nitro handlers must be default exported
 export default (): void => {
   try {
     config();

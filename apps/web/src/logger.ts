@@ -5,5 +5,4 @@ setup({
   activeLevel: 'info',
 });
 
-const logger = adze.withEmoji.timestamp.seal();
-export default logger;
+export const logger = adze.withEmoji.timestamp.seal();

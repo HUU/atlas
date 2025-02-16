@@ -1,5 +1,8 @@
 set -e
 
+# don't spam about turbo updates since they constantly have a new version
+export TURBO_NO_UPDATE_NOTIFIER=true
+
 pnpm build
 pnpm lint
 

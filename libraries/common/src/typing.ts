@@ -9,6 +9,7 @@ export function isCallable(wat: any): wat is Function {
   return Boolean(wat != null && typeof wat === 'function');
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters -- ensures proper type inference
 export function isEmpty<T extends { length: number }>(
   wat: T | undefined | null,
 ): wat is undefined | null {
@@ -27,6 +28,7 @@ export type WithRequired<T, TKey extends keyof T> = Omit<T, TKey> &
   NonNullableFields<Pick<Required<T>, TKey>>;
 
 export function nameOf<TObject>(obj: TObject, key: keyof TObject): string;
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters -- ensures proper type inference for overload
 export function nameOf<TObject>(key: keyof TObject): string;
 export function nameOf(key1: any, key2?: any): any {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return -- intentionally juggling any's due to non-overlapping types for key1 in the overloads above

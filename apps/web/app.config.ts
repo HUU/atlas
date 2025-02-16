@@ -5,12 +5,12 @@ export default defineConfig({
     appDirectory: 'src',
   },
   server: {
-    plugins: ['./app.boot.ts'],
+    plugins: ['./src/boot.ts'],
   },
 }).addRouter({
   type: 'http',
   name: 'restApi',
   base: '/api',
-  handler: './api.handler.ts',
+  handler: './src/api/__handler.ts',
   target: 'server',
 });

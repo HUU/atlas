@@ -3,8 +3,7 @@ import { z } from 'zod';
 import { authContract } from './auth';
 
 const c = initContract();
-
-export default c.router({
+export const contract = c.router({
   auth: authContract,
   healthz: {
     method: 'GET',

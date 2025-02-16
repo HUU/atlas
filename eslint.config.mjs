@@ -61,6 +61,7 @@ const namingConvention = [
 export default [
   includeIgnoreFile(gitignorePath),
   {
+    name: 'atlas/base',
     ...love,
     languageOptions: {
       ...love.languageOptions,
@@ -76,38 +77,22 @@ export default [
     rules: {
       ...love.rules,
 
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        {
-          vars: 'all',
-          args: 'after-used',
-          destructuredArrayIgnorePattern: '^_',
-          ignoreRestSiblings: true,
-        },
-      ],
+      // AI struggles with default exports so just don't use them
+      'import/no-default-export': 'error',
 
-      '@typescript-eslint/no-inferrable-types': [
-        'error',
-        {
-          ignoreParameters: true,
-          ignoreProperties: true,
-        },
-      ],
-
-      '@typescript-eslint/no-non-null-assertion': 'off',
-
-      '@typescript-eslint/no-unnecessary-type-parameters': 'off',
-
+      // who cares, go for it
       '@typescript-eslint/no-magic-numbers': 'off',
 
-      '@typescript-eslint/no-empty-object-type': 'off',
-
+      // ts-rest routes must be async but might not await anything!
       '@typescript-eslint/require-await': 'off',
 
+      // class methods might not dereference a class property and that's fine, good OOP demands some things stay class methods
       '@typescript-eslint/class-methods-use-this': 'off',
 
+      // this misfires all the time and gets mad at nothing like simple import/export statements
       '@typescript-eslint/prefer-destructuring': 'off',
 
+      // the default here is straight up developer-hostile and makes JS less pleasant
       '@typescript-eslint/strict-boolean-expressions': [
         'error',
         {
@@ -122,6 +107,7 @@ export default [
         },
       ],
 
+      // sometimes you need to bind unused variables to match type definitions or access the 2nd/3rd/nth position of a dereferencing assignment
       '@typescript-eslint/no-unused-vars': [
         'error',
         {
@@ -135,12 +121,18 @@ export default [
         },
       ],
 
+      // C# like naming convention because I like it, too bad
       '@typescript-eslint/naming-convention': ['error', ...namingConvention],
     },
   },
   {
+    name: 'atlas/tsx',
     files: ['**/*.tsx'],
     rules: {
+      // Expo Router / React Navigation / TanStack Router all rely on default exports
+      // ...also it's sort of a convention for react components
+      'import/no-default-export': 'off',
+
       '@typescript-eslint/naming-convention': [
         'error',
         ...namingConvention,
@@ -165,6 +157,14 @@ export default [
           },
         },
       ],
+    },
+  },
+  {
+    name: 'atlas/config-files',
+    files: ['**/*.config.{js,mjs,ts}', 'vitest.*.ts'],
+    rules: {
+      // a lot of config files use default exports
+      'import/no-default-export': 'off',
     },
   },
   prettierRecommended,

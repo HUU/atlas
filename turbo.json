@@ -1,11 +1,18 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": [
+    "tsconfig.json",
     "tsconfig.base.json",
     "vitest.config.base.ts",
+    "vitest.workspace.ts",
     "eslint.config.mjs",
     ".prettierrc.js",
-    ".npmrc"
+    ".npmrc",
+    ".markdownlint-cli2.mjs",
+    ".syncpackrc",
+    ".tool-versions",
+    "cspell.json",
+    "cspell-extra-dictionary.txt"
   ],
   "tasks": {
     "dev": {
@@ -18,7 +25,6 @@
       "outputLogs": "errors-only"
     },
     "test": {
-      "cache": false,
       "outputs": ["build/coverage/**"]
     },
     "clean": {

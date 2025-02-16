@@ -45,6 +45,7 @@ class ConfigProvider {
   finalizeSchema<T extends z.ZodRawShape>(
     schemaGenerator: (
       schemaBuilder: Pick<
+        // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- hacky trick to extract subset of ZodObject used for merging schemas
         z.ZodObject<{}, 'strip', z.ZodTypeAny, {}, {}>,
         'merge' | 'extend'
       >,

@@ -53,6 +53,6 @@
     "ios": "expo run:ios",
     "lint": "tsc && pnpm eslint \"src/**/*.{js,ts,tsx}\" \"*.js\"",
     "start": "expo start",
-    "test": "jest --watchAll"
+    "test": "jest"
   }
 }

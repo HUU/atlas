@@ -35,7 +35,7 @@
     "clean": "rm -rf .output .vinxi",
     "depcheck": "depcheck .",
     "dev": "vinxi dev",
-    "lint": "tsc && pnpm eslint \"src/**/*.{js,ts,tsx,jsx}\" \"*.{js,ts}\"",
+    "lint": "tsc && pnpm eslint \"src/**/*.{js,ts,tsx,jsx}\" \"*.{mjs,ts}\"",
     "set-secret": "dotenvx set",
     "start": "vinxi start",
     "test": "vitest run"

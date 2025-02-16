@@ -1,8 +1,9 @@
-import contract from '@atlas/api';
+import { contract } from '@atlas/api';
 import { fetchRequestHandler } from '@ts-rest/serverless/fetch';
 import { defineEventHandler, toWebRequest } from 'vinxi/http';
-import router from './src/api';
+import { apiRouter } from '.';
 
+// eslint-disable-next-line import/no-default-export -- nitro handlers must be default exported
 export default defineEventHandler(async (event) => {
   const request = toWebRequest(event);
 
@@ -10,7 +11,7 @@ export default defineEventHandler(async (event) => {
   return await fetchRequestHandler({
     request,
     contract,
-    router,
+    router: apiRouter,
     options: {
       basePath: '/api',
     },

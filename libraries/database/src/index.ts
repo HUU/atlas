@@ -23,7 +23,7 @@ export const db = new Proxy(
   },
 );
 
-export { configSchema as databaseConfigSchema } from './config';
+export { configSchema as databaseConfigSchemaFragment } from './config';
 export * from './schema';
 
 export const migrationsPath: string | undefined =
