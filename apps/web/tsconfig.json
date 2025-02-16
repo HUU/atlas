@@ -3,8 +3,15 @@
   "compilerOptions": {
     "baseUrl": "./",
     "noEmit": true,
-    "lib": ["DOM", "DOM.Iterable", "ES2022"]
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "types": ["vite/client"]
   },
-  "include": ["src", "__tests__/**/*.ts", "*.handler.ts", "app.*.ts"],
+  "include": [
+    "src",
+    "__tests__/**/*.ts",
+    "*.handler.ts",
+    "app.*.ts",
+    "*.config.mjs"
+  ],
   "exclude": ["build", "node_modules"]
 }

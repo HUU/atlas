@@ -1,10 +1,7 @@
-import {
-  Outlet,
-  ScrollRestoration,
-  createRootRoute,
-} from '@tanstack/react-router'
-import { Meta, Scripts } from '@tanstack/start'
-import type { ReactNode } from 'react'
+import { Outlet, createRootRoute } from '@tanstack/react-router';
+import { Meta, Scripts } from '@tanstack/start';
+import * as React from 'react';
+import globalCss from '../styles/global.css?url';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -20,19 +17,25 @@ export const Route = createRootRoute({
         title: 'TanStack Start Starter',
       },
     ],
+    links: [
+      { rel: 'stylesheet', href: globalCss },
+      { rel: 'icon', href: '/favicon.ico' },
+    ],
   }),
   component: RootComponent,
-})
+});
 
-function RootComponent() {
+function RootComponent(): React.JSX.Element {
   return (
     <RootDocument>
       <Outlet />
     </RootDocument>
-  )
+  );
 }
 
-function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
+function RootDocument({
+  children,
+}: Readonly<{ children: React.ReactNode }>): React.JSX.Element {
   return (
     <html>
       <head>
@@ -40,9 +43,8 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       </head>
       <body>
         {children}
-        <ScrollRestoration />
         <Scripts />
       </body>
     </html>
-  )
+  );
 }

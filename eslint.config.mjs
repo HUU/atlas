@@ -10,6 +10,10 @@ const gitignorePath = path.resolve(__dirname, '.gitignore');
 
 const namingConvention = [
   {
+    selector: 'import',
+    format: null,
+  },
+  {
     selector: 'default',
     format: ['camelCase'],
     leadingUnderscore: 'allow',
@@ -107,14 +111,14 @@ export default [
       '@typescript-eslint/strict-boolean-expressions': [
         'error',
         {
-          allowAny: false,
-          allowNullableBoolean: true,
-          allowNullableEnum: false,
-          allowNullableNumber: false,
-          allowNullableObject: true,
-          allowNullableString: true,
-          allowNumber: false,
-          allowString: true,
+          allowAny: false, // any's are evil, no
+          allowNullableBoolean: true, // null != "false" makes sense
+          allowNullableEnum: false, // too dangerous to crush enums with an implicit value of 0 to "false"
+          allowNullableNumber: false, // same issue as allowNumber
+          allowNullableObject: true, // easy null/undefined checking
+          allowNullableString: true, // empty or null string ~= "false" makes sense
+          allowNumber: false, // too dangerous to crush 0 to "false"
+          allowString: true, // empty string ~= "false" makes sense
         },
       ],
 
@@ -141,6 +145,7 @@ export default [
         'error',
         ...namingConvention,
         {
+          // allow react components to follow PascalCase naming since that's the industry standard
           selector: [
             'variable',
             'function',
@@ -149,6 +154,15 @@ export default [
           ],
           types: ['function'],
           format: ['PascalCase', 'camelCase'],
+        },
+        {
+          // special named export required by TanStack router
+          selector: 'variable',
+          format: null,
+          filter: {
+            regex: '(Route)',
+            match: true,
+          },
         },
       ],
     },
