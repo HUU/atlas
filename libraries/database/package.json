@@ -22,7 +22,7 @@
     "build": "tsc && cp -r ./migrations build/src/",
     "clean": "rm -rf build",
     "db:generateMigrations": "drizzle-kit generate",
-    "db:generateMigrationsAndVerifyNoChanges": "drizzle-kit generate | tee /dev/tty | (grep 'No schema changes, nothing to migrate' > /dev/null) || (echo '\\033[0;91m\\033[41mERROR: your migrations were out of date. Migrations have been generated for you, `git add` them and try again.' 1>&2 ; sh -c 'false')",
+    "db:generateMigrationsAndVerifyNoChanges": "drizzle-kit generate | tee /dev/tty | (grep 'No schema changes, nothing to migrate' > /dev/null) || (echo '\\033[0;91mERROR: your migrations were out of date. Migrations have been generated for you, `git add` them and try again.' 1>&2 ; sh -c 'false')",
     "depcheck": "depcheck .",
     "lint": "eslint \"src/**/*.{js,ts}\" \"*.ts\"",
     "test": "vitest run"
