@@ -1,3 +1,3 @@
-import config from '../../vitest.config.base';
+import { defineAtlasVitestConfig } from '../../vitest.config.base';
 
-export default config;
+export default defineAtlasVitestConfig({ junitSuiteName: '@atlas/common' });

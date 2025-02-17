@@ -1,10 +1,10 @@
 {
   "name": "@atlas/api",
   "description": "REST API contract used for mobile<->backend communication.",
-  "version": "0.0.0",
+  "version": "25.217.621-rc.0",
   "dependencies": {
-    "@ts-rest/core": "3.51.0",
-    "zod": "3.24.1"
+    "@atlas/common": "workspace:*",
+    "@ts-rest/core": "3.51.0"
   },
   "devDependencies": {
     "vitest": "3.0.2"

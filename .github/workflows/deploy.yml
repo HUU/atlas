@@ -1,0 +1,83 @@
+# A reusable workflow that checkouts the specified commit SHA, builds
+# artifacts and pushes them to production (what that means TBD). This
+# is meant to be called by other workflows to have triggers like schedules and on push...keeping
+# all the complex logic out of this workflow so it can be easily audited.
+#
+# MUST BE CALLED WITH `secrets: inherit` in order to access Deployment Environment
+# secrets...otherwise it will silen5ly run with empty values!
+#
+# MUST BE CALLED WITH `permissions: contents: write` in order be able to update
+# Git tags on successful releases.
+name: Deploy Release
+run-name: Deploy ${{ inputs.sha }}
+on:
+  workflow_call:
+    inputs:
+      sha:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: string
+      release-name:
+        required: true
+        type: string
+concurrency: ${{ inputs.environment }}
+permissions:
+  contents: write
+jobs:
+  DeployWeb:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.sha }}
+  DeployIos:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.sha }}
+  DeployAndroid:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.sha }}
+  PostResults:
+    needs: [DeployWeb, DeployIos, DeployAndroid]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Get Changelog
+        id: get-changelog
+        run: |
+          export RELEASE_ENVIRONMENT="${{ inputs.environment }}"
+          echo "title=*${{ inputs.environment == 'production' && '🚀' || '🧪' }} ${RELEASE_ENVIRONMENT^} Release $(echo ${{ inputs.release-name }} | sed -r "s/release\/|staging\///g")*" >> $GITHUB_OUTPUT
+          export RELEASE_NOTES="$(git rev-list ${{ inputs.environment }}-latest..${{ inputs.sha }} --pretty | sed -nr 's/[[:space:]]*CHANGELOG=(.+)/• \1/p' | sed 's/"/\\\"/g' | awk 'ORS="\\n"')"
+          echo ${RELEASE_NOTES}
+          echo "text=${RELEASE_NOTES:-\(no release notes\)}" >> $GITHUB_OUTPUT
+      # - uses: slackapi/slack-github-action@v1.24.0
+      #   continue-on-error: true
+      #   with:
+      #     channel-id: 'C05MHJSQB3M'
+      #     payload: |
+      #       {
+      #         "text": "${{ steps.get-changelog.outputs.title }}\n${{ steps.get-changelog.outputs.text }}"
+      #       }
+      #   env:
+      #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      - uses: rickstaa/action-create-tag@v1
+        with:
+          tag: '${{ inputs.environment }}-latest'
+          force_push_tag: true
+          message: 'Release ${{ inputs.release-name }} to ${{ inputs.environment }}'

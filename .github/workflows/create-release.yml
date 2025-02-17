@@ -1,0 +1,128 @@
+# Action that generates release branches. Other workflows are setup to trigger
+# on pushes into these branches which actually do the release. The point of this
+# is to have an automated release that requires human sign-off to initiate
+# (depending on the branch policies of course).
+#
+# The workflow verifies the current HEAD is healthy (postsubmit workflow passed)
+# and then creates a new release branch; then makes a PR to set the version
+# in every package.json file. The version is derived from the HEAD commit
+# timestamp in the form of YYYY.MDD.Hmm[-rc.0]. If the release already happened,
+# this workflow does nothing.
+#
+# If it's staging (and therefore branch protection rules allow the PR to automerge)
+# it proceeds directly to deploying the release...this is partially to workaround
+# the fact that GitHub won't trigger workflows for any actions done by
+# the GITHUB_TOKEN supplied by Github Actions by default (and we really don't
+# want to use a PAT).
+name: Create Scheduled Releases
+run-name: Create ${{ (github.event.inputs.environment== 'production' || github.event.schedule == '7 9 * * 4') && 'Production'  || 'Staging' }} Release
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        required: true
+        description: Environment
+        options:
+          - staging
+          - production
+      allow-unhealthy:
+        type: boolean
+        description: Skip checking if Build and Test checks have passed.
+  schedule:
+    - cron: '7 9 * * 4' # Prod on Thursday at 9AM
+    - cron: '7 17 * * *' # Staging every day at 5PM
+
+# you will need to authorize GH Actions to read/write and create PRs under
+# repository settings https://github.com/YOUR_USER/atlas/settings/actions as well as
+# org settings if this is part of an org: https://github.com/organizations/YOUR_ORG/settings/actions
+permissions:
+  contents: write
+  id-token: write
+  pull-requests: write
+  checks: read
+
+env:
+  ENVIRONMENT: ${{ github.event.inputs.environment || (github.event.schedule == '7 9 * * 4' && 'production' || 'staging')}}
+
+jobs:
+  CreateRelease:
+    runs-on: ubuntu-latest
+    outputs:
+      releaseSha: ${{ steps.pr.outputs.RELEASE_SHA }}
+      releaseEnvironment: ${{ env.ENVIRONMENT }}
+      releaseAlreadyDone: ${{ steps.create.outputs.ALREADY_RELEASED }}
+      releaseBranch: '${{ env.ENVIRONMENT }}/${{ steps.version.outputs.NAME }}'
+    steps:
+      - name: Check branch status
+        uses: actions/github-script@v6
+        if: ${{ github.event.inputs.allow-unhealthy == 'false' }}
+        with:
+          script: |
+            const { data } = await github.rest.checks.listForRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `${{ github.ref }}`,
+              filter: 'latest'
+            });
+            const runs = data.check_runs.filter(r => r.name === 'Build' || r.name === 'Tests')
+            console.log(runs);
+            const groupedRuns = runs.reduce((rv,x) => {(rv[x.name] = rv[x.name] || []).push(x); return rv; }, {});
+            const latestRuns = Object.values(groupedRuns).map(x => x.sort((a,b) => new Date(b.started_at) - new Date(a.started_at))[0]);
+            if (latestRuns.every(r => r.conclusion === 'success')) {
+              console.log(`Branch "${{ github.ref_name }}" is healthy. Proceeding with the workflow.`);
+            } else {
+              console.log(`Branch "${{ github.ref_name }}" is not healthy. Exiting workflow.`);
+              process.exit(1);
+            }
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # get full history so we can search back for an old release tag
+      - name: Determine semver
+        id: version
+        run: echo "NAME=$(date --date="@$(git log -1 --format="%at")" '+%y.%-m%d.%-H%M')" >> $GITHUB_OUTPUT
+      - name: Create branch
+        id: create
+        run: |
+          if git fetch origin "${{ env.ENVIRONMENT }}/${{steps.version.outputs.NAME}}"; then
+            echo "ALREADY_RELEASED=true" >> $GITHUB_OUTPUT
+          else
+            git branch "${{ env.ENVIRONMENT}}/${{steps.version.outputs.NAME}}" "${{ env.ENVIRONMENT }}-latest"
+            git push -u origin "${{ env.ENVIRONMENT }}/${{ steps.version.outputs.NAME }}"
+          fi
+      - name: Prepare Release PR
+        if: ${{ steps.create.outputs.ALREADY_RELEASED != 'true' }}
+        id: prepare
+        run: |
+          export NEXT_VERSION="${{steps.version.outputs.NAME}}${{env.ENVIRONMENT == 'staging' && '-rc.0' || ''}}"
+          echo "NEXT_VERSION=${NEXT_VERSION}" >> $GITHUB_OUTPUT
+          git checkout main
+          git checkout -b release/create-${NEXT_VERSION}
+          find . -name "package.json" | xargs sed -i -e "s/\"version\": \"0.0.0\"/\"version\": \"${NEXT_VERSION}\"/g"
+          git config user.name "GitHub Actions"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Set version numbers to ${NEXT_VERSION}"
+          git push -u origin release/create-${NEXT_VERSION}
+      - name: Send Release PR
+        if: ${{ steps.create.outputs.ALREADY_RELEASED != 'true' }}
+        id: pr
+        run: |
+          gh pr create -B "${{ env.ENVIRONMENT }}/${{steps.version.outputs.NAME}}" -H release/create-${{steps.prepare.outputs.NEXT_VERSION}} --title "Start ${ENVIRONMENT} release for $(date '+%Y/%m/%d')" --body "Automatically created by GitHub Actions"
+          gh pr merge -s || true
+          echo "Setting RELEASE_SHA=$(gh pr view --json mergeCommit | jq -r .mergeCommit.oid)"
+          echo "RELEASE_SHA=$(gh pr view --json mergeCommit | jq -r .mergeCommit.oid)" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  DeployRelease:
+    needs: CreateRelease
+    if: ${{ needs.CreateRelease.outputs.releaseSha != 'null' && needs.CreateRelease.outputs.releaseAlreadyDone != 'true' }}
+    uses: ./.github/workflows/deploy.yml
+    with:
+      sha: ${{ needs.CreateRelease.outputs.releaseSha }}
+      environment: ${{ needs.CreateRelease.outputs.releaseEnvironment }}
+      release-name: ${{ needs.CreateRelease.outputs.releaseBranch }}
+    secrets: inherit
+    permissions:
+      contents: write
