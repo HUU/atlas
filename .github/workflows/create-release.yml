@@ -29,9 +29,10 @@ on:
       allow-unhealthy:
         type: boolean
         description: Skip checking if Build and Test checks have passed.
-  schedule:
-    - cron: '7 9 * * 4' # Prod on Thursday at 9AM
-    - cron: '7 17 * * *' # Staging every day at 5PM
+  # don't actually run since this isn't ready
+  # schedule:
+  #   - cron: '7 9 * * 4' # Prod on Thursday at 9AM
+  #   - cron: '7 17 * * *' # Staging every day at 5PM
 
 # you will need to authorize GH Actions to read/write and create PRs under
 # repository settings https://github.com/YOUR_USER/atlas/settings/actions as well as
