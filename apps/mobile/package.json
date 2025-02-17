@@ -52,6 +52,6 @@
     "ios": "expo run:ios",
     "lint": "tsc && pnpm eslint \"src/**/*.{js,ts,tsx}\" \"*.js\"",
     "start": "expo start",
-    "test": "jest"
+    "test": "echo 'jest is not yet set up (rn/expo only supports jest yuck)'"
   }
 }
