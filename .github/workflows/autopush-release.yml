@@ -1,0 +1,26 @@
+# This workflow exists only to trigger deploy-release for pushes into release branches.
+# This keeps deploy-release simple without triggering logic and fallbacks, but also
+# it ensures we push hotfix commits pushed onto any given release branch (via PR
+# or direct push). It will also pick up the automatic weekly release when someone
+# approves the automatically created PR. It DOES NOT trigger for staging since that
+# branch / PR are all pushed automatically from GitHub actions which does not
+# start workflows from events triggered by actions taken by GitHub Actions...dumb
+# but it makes this simple.
+name: Autopush Release
+run-name: Autopush ${{ github.ref_name }}
+on:
+  push:
+    branches:
+      - release/*
+      - staging/*
+
+jobs:
+  DeployRelease:
+    uses: ./.github/workflows/deploy-release.yml
+    with:
+      sha: ${{ github.sha }}
+      environment: ${{ (startsWith(github.ref_name, 'release/') && 'production') || (startsWith(github.ref_name, 'staging/') && 'staging') || 'unsupported'  }}
+      release-name: ${{ github.ref_name }}
+    secrets: inherit
+    permissions:
+      contents: write
