@@ -1,7 +1,7 @@
 {
   "name": "@atlas/common",
   "description": "Shared helper functions and a base-class-library extensions.",
-  "version": "0.0.0",
+  "version": "25.217.621-rc.0",
   "dependencies": {
     "adze": "2.2.0",
     "date-fns": "4.1.0",
