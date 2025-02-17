@@ -1,0 +1,71 @@
+name: Build, Lint, and Test Monorepo
+run-name: ${{ (github.event.pull_request && 'Presubmit tests' || (github.event_name == 'workflow_dispatch' && 'Manual run' || 'Postsubmit tests')) }} for ${{ github.event.pull_request && '#' || '' }}${{ github.event.pull_request.number || (github.event_name == 'workflow_dispatch' && github.actor || github.ref_name) }}
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - 'main'
+concurrency:
+  group: ${{ github.workflow }} for ${{ github.event.pull_request.head.label || github.head_ref || format('{0}@{1}', github.ref, github.sha) }}
+  cancel-in-progress: true
+
+permissions:
+  id-token: write
+  contents: read
+  checks: write
+
+env:
+  TURBO_TELEMETRY_DISABLED: 1
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install asdf & tools (Node, PNPM)
+        uses: asdf-vm/actions/install@v3
+        with:
+          asdf_branch: v0.15.0 # remove annoying spam until v0.16.0+ is stable
+      - name: Collect pnpm store path for caching
+        id: pnpm-config
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      - name: Calculate cache rotation keys
+        id: cache-rotation
+        run: |
+          echo "YEAR_MONTH=$(/bin/date -u "+%Y%m")" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-config.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-cache-${{ steps.cache-rotation.outputs.YEAR_MONTH }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-cache-${{ steps.cache-rotation.outputs.YEAR_MONTH }}-
+      - name: Install Dependencies
+        id: pnpm-install
+        run: pnpm install --frozen-lockfile --prefer-offline
+        env:
+          HUSKY: '0' # do not set up husky hooks in CI
+      - name: Build
+        run: pnpm build
+        # run all of Build/Lint/Test even if earlier steps fail so we have "all results" at our disposal.
+        if: ${{ (success() || failure()) && steps.pnpm-install.conclusion != 'failure' }}
+      - name: Lint
+        run: pnpm lint
+        # run all of Build/Lint/Test even if earlier steps fail so we have "all results" at our disposal.
+        if: ${{ (success() || failure()) && steps.pnpm-install.conclusion != 'failure' }}
+      - name: Test
+        run: pnpm test
+        # run all of Build/Lint/Test even if earlier steps fail so we have "all results" at our disposal.
+        if: ${{ (success() || failure()) && steps.pnpm-install.conclusion != 'failure' }}
+      - name: Upload Test Report
+        uses: dorny/test-reporter@v1
+        # run all of Build/Lint/Test even if earlier steps fail so we have "all results" at our disposal.
+        if: ${{ (success() || failure()) && steps.pnpm-install.conclusion != 'failure' }}
+        with:
+          name: Tests
+          path: '**/build/junit-*.xml' # output path configured in vitest.config.base.ts
+          reporter: jest-junit

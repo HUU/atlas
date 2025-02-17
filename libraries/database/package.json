@@ -1,11 +1,10 @@
 {
   "name": "@atlas/database",
   "description": "Drizzle schema and migrations for primary PostgreSQL database.",
-  "version": "0.0.0",
+  "version": "25.217.616",
   "dependencies": {
     "@atlas/common": "workspace:*",
-    "drizzle-orm": "0.38.4",
-    "zod": "3.24.1"
+    "drizzle-orm": "0.38.4"
   },
   "devDependencies": {
     "drizzle-kit": "0.30.2",

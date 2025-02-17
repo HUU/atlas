@@ -7,6 +7,40 @@
     "prod",
     "resolutions"
   ],
+  "versionGroups": [
+    {
+      "dependencies": ["@types/**"],
+      "dependencyTypes": ["!dev"],
+      "isBanned": true,
+      "label": "@types packages should only be under devDependencies"
+    },
+    {
+      "dependencies": ["$LOCAL"],
+      "pinVersion": "workspace:*",
+      "label": "Use workspace protocol when developing local packages"
+    },
+    {
+      "dependencies": ["moment"],
+      "isBanned": true,
+      "label": "use date-fns for date manipulation (install @atlas/common)"
+    },
+    {
+      "dependencies": ["pino", "winston"],
+      "isBanned": true,
+      "label": "use adze for logging (install @atlas/common)"
+    },
+    {
+      "dependencies": ["lodash", "underscore"],
+      "isBanned": true,
+      "label": "use radash for functional helpers (install @atlas/common)"
+    },
+    {
+      "packages": ["!@atlas/common"],
+      "dependencies": ["adze", "radash", "date-fns", "zod"],
+      "isBanned": true,
+      "label": "use @atlas/common to access common dependencies"
+    }
+  ],
   "semverGroups": [
     {
       "label": "use exact version numbers",

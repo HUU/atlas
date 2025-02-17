@@ -20,5 +20,4 @@
 
 ## Open Questions
 
-* Any easy way to enforce a single set of "common libraries" without copying into every single package.json? radash, date-fns, adze.
 * What component library for web + mobile?
