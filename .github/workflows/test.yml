@@ -24,6 +24,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Install asdf & tools (Node, PNPM)
         uses: asdf-vm/actions/install@v3
+        with:
+          asdf_branch: v0.15.0 # remove annoying spam until v0.16.0+ is stable
       - name: Collect pnpm store path for caching
         id: pnpm-config
         run: |
