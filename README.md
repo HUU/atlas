@@ -5,8 +5,12 @@
 ### Code Complete
 
 * Build time config schema enforcement
-* Web libraries (forms, dates, tanstack query, component library)
-* Mobile libraries (component library)
+* NativeWind + component library
+* TailWind component library (raw Radix?)
+* Web libraries (forms, tanstack query)
+* Web UI testing (Cypress?)
+* Mobile libraries (forms, tanstack query)
+* Mobile testing (Jest? why why why)
 * Authentication overall (API OAuth, Web+Mobile using Google and Apple authentication)
 
 ### Production Readiness
@@ -16,8 +20,4 @@
 * Product Analytics
 * Switching environments inside the mobile app
 * Docker + GCP via Pulumi for deployment
-* GitHub CI/CD
-
-## Open Questions
-
-* What component library for web + mobile?
+* Fastlane / Metro for pushing to the app stores
