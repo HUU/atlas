@@ -73,6 +73,8 @@ jobs:
             }
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          ref: '${{ env.ENVIRONMENT }}-latest' # tagged by `deploy.yml` running to completion
       - name: Determine semver
         id: version
         run: echo "NAME=$(date --date="@$(git log -1 --format="%at")" '+%y.%-m%d.%-H%M')" >> $GITHUB_OUTPUT
@@ -90,18 +92,19 @@ jobs:
         run: |
           export NEXT_VERSION="${{steps.version.outputs.NAME}}${{env.ENVIRONMENT == 'staging' && '-rc.0' || ''}}"
           echo "NEXT_VERSION=${NEXT_VERSION}" >> $GITHUB_OUTPUT
-          git checkout -b develop/increment-version-for-${NEXT_VERSION}
+          git checkout main
+          git checkout -b release/create-${NEXT_VERSION}
           find . -name "package.json" | xargs sed -i -e "s/\"version\": \"0.0.0\"/\"version\": \"${NEXT_VERSION}\"/g"
           git config user.name "GitHub Actions"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
           git commit -m "Set version numbers to ${NEXT_VERSION}"
-          git push -u origin develop/increment-version-for-${NEXT_VERSION}
+          git push -u origin release/create-${NEXT_VERSION}
       - name: Send Release PR
         if: ${{ steps.create.outputs.ALREADY_RELEASED != 'true' }}
         id: pr
         run: |
-          gh pr create -B "${{ env.ENVIRONMENT }}/${{steps.version.outputs.NAME}}" -H develop/increment-version-for-${{steps.prepare.outputs.NEXT_VERSION}} --title "Start ${ENVIRONMENT} release for $(date '+%Y/%m/%d')" --body "Automatically created by GitHub Actions"
+          gh pr create -B "${{ env.ENVIRONMENT }}/${{steps.version.outputs.NAME}}" -H release/create-${{steps.prepare.outputs.NEXT_VERSION}} --title "Start ${ENVIRONMENT} release for $(date '+%Y/%m/%d')" --body "Automatically created by GitHub Actions"
           gh pr merge -s || true
           echo "Setting RELEASE_SHA=$(gh pr view --json mergeCommit | jq -r .mergeCommit.oid)"
           echo "RELEASE_SHA=$(gh pr view --json mergeCommit | jq -r .mergeCommit.oid)" >> $GITHUB_OUTPUT
