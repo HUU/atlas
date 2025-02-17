@@ -16,6 +16,8 @@ permissions:
   contents: read
   checks: write
 
+env: TURBO_TELEMETRY_DISABLED=1
+
 jobs:
   Build:
     runs-on: ubuntu-latest
@@ -60,8 +62,9 @@ jobs:
         if: ${{ (success() || failure()) && steps.pnpm-install.conclusion != 'failure' }}
       - name: Upload Test Report
         uses: dorny/test-reporter@v1
+        # run all of Build/Lint/Test even if earlier steps fail so we have "all results" at our disposal.
         if: ${{ (success() || failure()) && steps.pnpm-install.conclusion != 'failure' }}
         with:
           name: Tests
-          path: '**/build/junit-*.xml'
+          path: '**/build/junit-*.xml' # output path configured in vitest.config.base.ts
           reporter: jest-junit
