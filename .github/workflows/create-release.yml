@@ -55,7 +55,7 @@ jobs:
     steps:
       - name: Check branch status
         uses: actions/github-script@v6
-        if: ${{ !github.event.inputs.allow-unhealthy }}
+        # if: ${{ !github.event.inputs.allow-unhealthy }}
         with:
           script: |
             const { data } = await github.rest.checks.listForRef({
@@ -84,11 +84,12 @@ jobs:
       - name: Create branch
         id: create
         run: |
+          echo "flag: ${{ github.event.inputs.allow-unhealthy }}"
           if git fetch origin "${{ env.ENVIRONMENT }}/${{steps.version.outputs.NAME}}"; then
             echo "ALREADY_RELEASED=true" >> $GITHUB_OUTPUT
           else
-            git checkout "${{ env.ENVIRONMENT }}-latest"
-            git branch --track=direct "${{ env.ENVIRONMENT}}/${{steps.version.outputs.NAME}}" && git push -u origin "${{ env.ENVIRONMENT }}/${{ steps.version.outputs.NAME }}"
+            git branch "${{ env.ENVIRONMENT}}/${{steps.version.outputs.NAME}}" "${{ env.ENVIRONMENT }}-latest"
+            git push -u origin "${{ env.ENVIRONMENT }}/${{ steps.version.outputs.NAME }}"
           fi
       - name: Prepare Release PR
         if: ${{ steps.create.outputs.ALREADY_RELEASED != 'true' }}
