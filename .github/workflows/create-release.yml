@@ -28,8 +28,6 @@ on:
           - production
       allow-unhealthy:
         type: boolean
-        required: false
-        default: false
         description: Skip checking if Build and Test checks have passed.
   schedule:
     - cron: '7 9 * * 4' # Prod on Thursday at 9AM
@@ -58,7 +56,7 @@ jobs:
     steps:
       - name: Check branch status
         uses: actions/github-script@v6
-        # if: ${{ !github.event.inputs.allow-unhealthy }}
+        if: ${{ github.event.inputs.allow-unhealthy == 'false' }}
         with:
           script: |
             const { data } = await github.rest.checks.listForRef({
@@ -87,7 +85,6 @@ jobs:
       - name: Create branch
         id: create
         run: |
-          echo "flag: ${{ github.event.inputs.allow-unhealthy }}"
           if git fetch origin "${{ env.ENVIRONMENT }}/${{steps.version.outputs.NAME}}"; then
             echo "ALREADY_RELEASED=true" >> $GITHUB_OUTPUT
           else
