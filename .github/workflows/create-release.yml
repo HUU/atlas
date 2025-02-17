@@ -21,12 +21,15 @@ on:
     inputs:
       environment:
         type: choice
+        required: true
         description: Environment
         options:
           - staging
           - production
       allow-unhealthy:
         type: boolean
+        required: false
+        default: false
         description: Skip checking if Build and Test checks have passed.
   schedule:
     - cron: '7 9 * * 4' # Prod on Thursday at 9AM
@@ -74,7 +77,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: '${{ env.ENVIRONMENT }}-latest' # tagged by `deploy.yml` running to completion
+          fetch-depth: 0 # get full history so we can search back for an old release tag
       - name: Determine semver
         id: version
         run: echo "NAME=$(date --date="@$(git log -1 --format="%at")" '+%y.%-m%d.%-H%M')" >> $GITHUB_OUTPUT
@@ -84,6 +87,7 @@ jobs:
           if git fetch origin "${{ env.ENVIRONMENT }}/${{steps.version.outputs.NAME}}"; then
             echo "ALREADY_RELEASED=true" >> $GITHUB_OUTPUT
           else
+            git checkout "${{ env.ENVIRONMENT }}-latest"
             git branch --track=direct "${{ env.ENVIRONMENT}}/${{steps.version.outputs.NAME}}" && git push -u origin "${{ env.ENVIRONMENT }}/${{ steps.version.outputs.NAME }}"
           fi
       - name: Prepare Release PR
