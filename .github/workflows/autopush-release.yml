@@ -11,7 +11,7 @@ run-name: Autopush ${{ github.ref_name }}
 on:
   push:
     branches:
-      - release/*
+      - production/*
       - staging/*
 
 jobs:
@@ -19,7 +19,7 @@ jobs:
     uses: ./.github/workflows/deploy-release.yml
     with:
       sha: ${{ github.sha }}
-      environment: ${{ (startsWith(github.ref_name, 'release/') && 'production') || (startsWith(github.ref_name, 'staging/') && 'staging') || 'unsupported'  }}
+      environment: ${{ (startsWith(github.ref_name, 'production/') && 'production') || (startsWith(github.ref_name, 'staging/') && 'staging') || 'unsupported'  }}
       release-name: ${{ github.ref_name }}
     secrets: inherit
     permissions:
