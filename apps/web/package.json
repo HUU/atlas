@@ -1,7 +1,7 @@
 {
   "name": "@atlas/web",
   "description": "Web app used by employees for managing client care and the API consumed by the mobile app.",
-  "version": "0.0.0",
+  "version": "25.217.616",
   "dependencies": {
     "@atlas/api": "workspace:*",
     "@atlas/common": "workspace:*",
