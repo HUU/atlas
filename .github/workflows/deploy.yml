@@ -28,7 +28,7 @@ permissions:
 jobs:
   DeployWeb:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    environment: web-${{ inputs.environment }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -36,7 +36,7 @@ jobs:
           ref: ${{ inputs.sha }}
   DeployIos:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    environment: ios-testflight
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -44,7 +44,7 @@ jobs:
           ref: ${{ inputs.sha }}
   DeployAndroid:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    environment: android-internal
     steps:
       - name: Checkout
         uses: actions/checkout@v3

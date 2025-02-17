@@ -1,6 +1,6 @@
 {
   "name": "prototype",
-  "version": "0.0.0",
+  "version": "25.217.703-rc.0",
   "//": "devDependencies are for the whole monorepo",
   "devDependencies": {
     "@eslint/compat": "1.2.5",

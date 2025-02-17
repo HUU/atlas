@@ -52,6 +52,7 @@ Synthroid
 tanstack
 telehealth
 telemedicine
+testflight
 testid
 timeoutable
 timestamptz
