@@ -256,6 +256,9 @@ importers:
       '@pulumi/pulumi':
         specifier: 3.150.0
         version: 3.150.0(typescript@5.7.3)
+      '@pulumi/random':
+        specifier: 4.17.0
+        version: 4.17.0(typescript@5.7.3)
 
   libraries/api:
     dependencies:
@@ -2565,6 +2568,9 @@ packages:
 
   '@pulumi/query@0.3.0':
     resolution: {integrity: sha512-xfo+yLRM2zVjVEA4p23IjQWzyWl1ZhWOGobsBqRpIarzLvwNH/RAGaoehdxlhx4X92302DrpdIFgTICMN4P38w==}
+
+  '@pulumi/random@4.17.0':
+    resolution: {integrity: sha512-zJxTp5F7fANhm6CgIpWQEhF1/G0zUj6x+Y3g1JkHmLM5tVLmW5FTzD4K+JDLL0m2iZL7iQET0hx/kO4Aj3MizQ==}
 
   '@radix-ui/react-compose-refs@1.0.0':
     resolution: {integrity: sha512-0KaSv6sx787/hK3eF53iOkiSLwAGlFMx5lotrqD2pTjB18KbybKoEIgkNZTKC60YECDQTKGTRcDBILwZVqVKvA==}
@@ -11907,6 +11913,15 @@ snapshots:
       - supports-color
 
   '@pulumi/query@0.3.0': {}
+
+  '@pulumi/random@4.17.0(typescript@5.7.3)':
+    dependencies:
+      '@pulumi/pulumi': 3.150.0(typescript@5.7.3)
+    transitivePeerDependencies:
+      - bluebird
+      - supports-color
+      - ts-node
+      - typescript
 
   '@radix-ui/react-compose-refs@1.0.0(react@18.3.1)':
     dependencies:

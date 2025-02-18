@@ -13,6 +13,10 @@
       "path": "apps/mobile"
     },
     {
+      "name": "Infra",
+      "path": "infra"
+    },
+    {
       "name": "Common",
 			"path": "libraries/common"
 		},

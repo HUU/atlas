@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "dependencies": {
     "@pulumi/gcp": "8.19.1",
-    "@pulumi/pulumi": "3.150.0"
+    "@pulumi/pulumi": "3.150.0",
+    "@pulumi/random": "4.17.0"
   },
   "main": "build/index.js",
   "private": true,

@@ -4,7 +4,6 @@
 
 ### Code Complete
 
-* Build time config schema enforcement
 * NativeWind + component library
 * TailWind component library (raw Radix?)
 * Web libraries (forms, tanstack query)
@@ -34,6 +33,21 @@
 
 ## DevOps
 
-### Pulumi
+### Pulumi (WIP)
 
-`pulumi login --local` because they are are snakes.
+Only needed if you are manually developing/extending Pulumi code. Otherwise CI/CD should take care of it and there is no need for this.
+
+* Create a GCP project and billing account, enable billing.
+* Enable <https://console.cloud.google.com/apis/library/compute.googleapis.com>
+
+TODO: figure out storage backend (GCS bucket).
+TODO: figure out dotenvx private key injection and loading production fork of config file (if it's even needed)
+
+* Set up gcloud CLI `curl https://sdk.cloud.google.com | bash`
+* Set up default project `gcloud config set project <YOUR_GCP_PROJECT_ID>`
+* Set up ADC credentials `gcloud auth application-default login`
+
+Deployment:
+
+* `pulumi up`
+* `pulumi stack output --show-secrets` to get the database info and populate `apps/web/.env.production` (maybe, could just inject via environment variables directly)
