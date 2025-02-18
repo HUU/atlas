@@ -31,7 +31,6 @@
       "cache": false
     },
     "lint": {
-      "dependsOn": ["transit"],
       "outputLogs": "new-only"
     },
     "depcheck": { "outputLogs": "errors-only" },
@@ -39,9 +38,6 @@
     "//#lint:markdown": { "outputLogs": "new-only" },
     "//#lint:spelling": { "outputLogs": "new-only" },
     "//#lint:syncpack": { "outputLogs": "new-only" },
-    "//#lint:root": { "outputLogs": "new-only" },
-    "transit": {
-      "dependsOn": ["^transit"]
-    }
+    "//#lint:root": { "outputLogs": "new-only" }
   }
 }
