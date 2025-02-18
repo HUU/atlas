@@ -31,7 +31,7 @@
       "cache": false
     },
     "lint": {
-      "outputLogs": "new-only"
+      "outputLogs": "errors-only"
     },
     "depcheck": { "outputLogs": "errors-only" },
     "//#lint:json": { "outputLogs": "new-only" },

@@ -1,0 +1,18 @@
+{
+  "name": "@atlas/infra",
+  "description": "Pulumi project for deploying the entire Atlas solution to GCP.",
+  "version": "0.0.0",
+  "dependencies": {
+    "@pulumi/gcp": "8.19.1",
+    "@pulumi/pulumi": "3.150.0"
+  },
+  "main": "build/index.js",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf build",
+    "depcheck": "depcheck .",
+    "lint": "eslint \"src/**/*.{js,ts}\""
+  },
+  "type": "module"
+}

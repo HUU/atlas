@@ -7,10 +7,12 @@ export default defineConfig({
   server: {
     plugins: ['./src/boot.ts'],
   },
-}).addRouter({
-  type: 'http',
-  name: 'restApi',
-  base: '/api',
-  handler: './src/api/__handler.ts',
-  target: 'server',
-});
+}).then((config) =>
+  config.addRouter({
+    type: 'http',
+    name: 'restApi',
+    base: '/api',
+    handler: './src/api/__handler.ts',
+    target: 'server',
+  }),
+);

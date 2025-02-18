@@ -31,3 +31,9 @@
 * Switching environments inside the mobile app
 * Docker + GCP via Pulumi for deployment
 * Fastlane / Metro for pushing to the app stores
+
+## DevOps
+
+### Pulumi
+
+`pulumi login --local` because they are are snakes.

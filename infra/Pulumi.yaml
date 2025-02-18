@@ -1,0 +1,7 @@
+name: atlas
+description: Pulumi project for deploying the entire Atlas solution to GCP.
+runtime:
+  name: nodejs
+  options:
+    typescript: false # we will do our own typescript compilation, to enable monorepo dependencies
+    packagemanager: pnpm
