@@ -1,19 +1,9 @@
-import { apiClient } from '@/clients';
-import { callAsyncEventHandler } from '@atlas/common';
-import { useState, type ReactElement } from 'react';
-import { Button, Text, View } from 'react-native';
+import { api } from '@/clients';
+import type { ReactElement } from 'react';
+import { ActivityIndicator, Text, View } from 'react-native';
 
 export default function Index(): ReactElement {
-  const [result, setResult] = useState<string>('');
-
-  const handleQueryPressed = async (): Promise<void> => {
-    const { status, body } = await apiClient.healthz();
-    if (status === 200) {
-      setResult(body.message);
-    } else {
-      setResult(`Error: ${status}`);
-    }
-  };
+  const { data, isLoading } = api.healthz.useQuery({ queryKey: ['healthz'] });
 
   return (
     <View
@@ -23,11 +13,13 @@ export default function Index(): ReactElement {
         alignItems: 'center',
       }}
     >
-      <Button
-        title="Query Server"
-        onPress={callAsyncEventHandler(handleQueryPressed)}
-      ></Button>
-      <Text>{result}</Text>
+      {isLoading ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <Text>
+          {data?.status} - {data?.body.message}
+        </Text>
+      )}
     </View>
   );
 }

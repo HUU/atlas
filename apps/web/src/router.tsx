@@ -1,14 +1,20 @@
+import { QueryClient } from '@tanstack/react-query';
 import { createRouter as createTanStackRouter } from '@tanstack/react-router';
+import { routerWithQueryClient } from '@tanstack/react-router-with-query';
 import { routeTree } from './routeTree.gen';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type -- automatically infers typing of the route tree
 export function createRouter() {
-  const router = createTanStackRouter({
-    routeTree,
-    scrollRestoration: true,
-  });
+  const queryClient = new QueryClient();
 
-  return router;
+  return routerWithQueryClient(
+    createTanStackRouter({
+      routeTree,
+      scrollRestoration: true,
+      context: { queryClient },
+    }),
+    queryClient,
+  );
 }
 
 declare module '@tanstack/react-router' {

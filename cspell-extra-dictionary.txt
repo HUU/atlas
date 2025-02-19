@@ -21,6 +21,7 @@ dockerfile
 dockerfiles
 dotenv
 dotenvx
+DSLs
 DTO
 DTOS
 endtime
@@ -46,6 +47,7 @@ nocheck
 nodenext
 nodir
 permadiff
+pgtyped
 Postsubmit
 preinstall
 Presubmit
@@ -65,6 +67,7 @@ swipeable
 syncpack
 syncpackrc
 Synthroid
+Tamagui
 tanstack
 telehealth
 telemedicine
@@ -74,6 +77,7 @@ timeoutable
 timestamptz
 trpc
 TSTZRANGE
+unistyles
 usehooks
 videocam
 vinxi

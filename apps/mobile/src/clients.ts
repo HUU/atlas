@@ -1,7 +1,7 @@
 import { contract } from '@atlas/api';
-import { initClient } from '@ts-rest/core';
+import { initTsrReactQuery } from '@ts-rest/react-query/v5';
 import { config } from './config';
 
-export const apiClient = initClient(contract, {
+export const api = initTsrReactQuery(contract, {
   baseUrl: config.publicApiUrl,
 });

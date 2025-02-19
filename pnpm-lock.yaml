@@ -89,9 +89,15 @@ importers:
       '@react-navigation/native':
         specifier: 7.0.14
         version: 7.0.14(react-native@0.76.7(@babel/core@7.25.2)(@babel/preset-env@7.26.9(@babel/core@7.25.2))(@types/react@18.3.12)(encoding@0.1.13)(react@18.3.1))(react@18.3.1)
+      '@tanstack/react-query':
+        specifier: 5.66.7
+        version: 5.66.7(react@18.3.1)
       '@ts-rest/core':
         specifier: 3.51.0
         version: 3.51.0(@types/node@22.10.5)(zod@3.24.1)
+      '@ts-rest/react-query':
+        specifier: 3.52.0
+        version: 3.52.0(@tanstack/react-query@5.66.7(react@18.3.1))(@ts-rest/core@3.51.0(@types/node@22.10.5)(zod@3.24.1))(react@18.3.1)(zod@3.24.1)
       expo:
         specifier: 52.0.31
         version: 52.0.31(@babel/core@7.25.2)(@babel/preset-env@7.26.9(@babel/core@7.25.2))(@expo/metro-runtime@4.0.1(react-native@0.76.7(@babel/core@7.25.2)(@babel/preset-env@7.26.9(@babel/core@7.25.2))(@types/react@18.3.12)(encoding@0.1.13)(react@18.3.1)))(encoding@0.1.13)(react-native-webview@13.12.5(react-native@0.76.7(@babel/core@7.25.2)(@babel/preset-env@7.26.9(@babel/core@7.25.2))(@types/react@18.3.12)(encoding@0.1.13)(react@18.3.1))(react@18.3.1))(react-native@0.76.7(@babel/core@7.25.2)(@babel/preset-env@7.26.9(@babel/core@7.25.2))(@types/react@18.3.12)(encoding@0.1.13)(react@18.3.1))(react@18.3.1)
@@ -134,6 +140,9 @@ importers:
       react-dom:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
+      react-hook-form:
+        specifier: 7.54.2
+        version: 7.54.2(react@18.3.1)
       react-native:
         specifier: 0.76.7
         version: 0.76.7(@babel/core@7.25.2)(@babel/preset-env@7.26.9(@babel/core@7.25.2))(@types/react@18.3.12)(encoding@0.1.13)(react@18.3.1)
@@ -192,9 +201,18 @@ importers:
       '@dotenvx/dotenvx':
         specifier: 1.35.0
         version: 1.35.0
+      '@tanstack/react-query':
+        specifier: 5.66.7
+        version: 5.66.7(react@18.3.1)
+      '@tanstack/react-query-devtools':
+        specifier: 5.66.7
+        version: 5.66.7(@tanstack/react-query@5.66.7(react@18.3.1))(react@18.3.1)
       '@tanstack/react-router':
         specifier: 1.105.0
         version: 1.105.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tanstack/react-router-with-query':
+        specifier: 1.106.0
+        version: 1.106.0(@tanstack/react-query@5.66.7(react@18.3.1))(@tanstack/react-router@1.105.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tanstack/router-devtools':
         specifier: 1.105.0
         version: 1.105.0(@tanstack/react-router@1.105.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(csstype@3.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -204,6 +222,9 @@ importers:
       '@ts-rest/core':
         specifier: 3.51.0
         version: 3.51.0(@types/node@22.10.5)(zod@3.24.1)
+      '@ts-rest/react-query':
+        specifier: 3.52.0
+        version: 3.52.0(@tanstack/react-query@5.66.7(react@18.3.1))(@ts-rest/core@3.51.0(@types/node@22.10.5)(zod@3.24.1))(react@18.3.1)(zod@3.24.1)
       '@ts-rest/serverless':
         specifier: 3.51.0
         version: 3.51.0(@ts-rest/core@3.51.0(@types/node@22.10.5)(zod@3.24.1))(zod@3.24.1)
@@ -228,6 +249,9 @@ importers:
       react-dom:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
+      react-hook-form:
+        specifier: 7.54.2
+        version: 7.54.2(react@18.3.1)
       tailwindcss:
         specifier: 3.4.17
         version: 3.4.17
@@ -2984,9 +3008,35 @@ packages:
     resolution: {integrity: sha512-JMd7USmnp8zV8BRGIjALqzPxazvKtQ7PGXQC7n39HpbqdsmfV2ePCzieO84IvN+mwsTrXErpbjI4BfKCa+ZNCg==}
     engines: {node: '>=12'}
 
+  '@tanstack/query-core@5.66.4':
+    resolution: {integrity: sha512-skM/gzNX4shPkqmdTCSoHtJAPMTtmIJNS0hE+xwTTUVYwezArCT34NMermABmBVUg5Ls5aiUXEDXfqwR1oVkcA==}
+
+  '@tanstack/query-devtools@5.65.0':
+    resolution: {integrity: sha512-g5y7zc07U9D3esMdqUfTEVu9kMHoIaVBsD0+M3LPdAdD710RpTcLiNvJY1JkYXqkq9+NV+CQoemVNpQPBXVsJg==}
+
   '@tanstack/react-cross-context@1.99.0':
     resolution: {integrity: sha512-PJuVaijr3FTV8HJcmfzGcQ4+ZlNUwJ0B51MNlawClJ4pBOerJrW/iEKPIg0glPVx3KQ4WHMv8cEGmvN+xYtLJw==}
     peerDependencies:
+      react: '>=18.0.0 || >=19.0.0'
+      react-dom: '>=18.0.0 || >=19.0.0'
+
+  '@tanstack/react-query-devtools@5.66.7':
+    resolution: {integrity: sha512-40z4PPkz06tYIF0vwLZZIZfZxKUH4OAaBOR14blCFyYm6hlU6qc+M82mkZ+D00HcEMhV7P4XeJiEuDhFq0q9Qw==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.66.7
+      react: ^18 || ^19
+
+  '@tanstack/react-query@5.66.7':
+    resolution: {integrity: sha512-qd3q/tUpF2K1xItfPZddk1k/8pSXnovg41XyCqJgPoyYEirMBtB0sVEVVQ/CsAOngzgWtBPXimVf4q4kM9uO6A==}
+    peerDependencies:
+      react: ^18 || ^19
+
+  '@tanstack/react-router-with-query@1.106.0':
+    resolution: {integrity: sha512-+/U1zgVD83jIrLkzYaCaEkwgy1JCyyow448kbN9ZYN9eSDv8st4o2lm09KgxXmvPbeCw9HT+QjMyIsiIoMeUWQ==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      '@tanstack/react-query': '>=5.49.2'
+      '@tanstack/react-router': '>=1.43.2'
       react: '>=18.0.0 || >=19.0.0'
       react-dom: '>=18.0.0 || >=19.0.0'
 
@@ -3156,6 +3206,17 @@ packages:
     peerDependenciesMeta:
       '@types/node':
         optional: true
+      zod:
+        optional: true
+
+  '@ts-rest/react-query@3.52.0':
+    resolution: {integrity: sha512-fsneOuSGsZ54GAEpsjhZDH5p8RsRWky752BU0wPQoUBB3yW4GOTMSzQsVN7ZtgM7O/eP06A5AYG9MHt9iQGuHw==}
+    peerDependencies:
+      '@tanstack/react-query': ^4.0.0 || ^5.0.0
+      '@ts-rest/core': ~3.52.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      zod: ^3.22.3
+    peerDependenciesMeta:
       zod:
         optional: true
 
@@ -7773,6 +7834,12 @@ packages:
     peerDependencies:
       react: ^16.6.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.6.0 || ^17.0.0 || ^18.0.0
+
+  react-hook-form@7.54.2:
+    resolution: {integrity: sha512-eHpAUgUjWbZocoQYUHposymRb4ZP6d0uwUnooL2uOybA9/3tPUvoAKqEWK1WaSiTxxOfTpffNZP7QwlnM3/gEg==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18 || ^19
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -12449,8 +12516,30 @@ snapshots:
 
   '@tanstack/history@1.99.13': {}
 
+  '@tanstack/query-core@5.66.4': {}
+
+  '@tanstack/query-devtools@5.65.0': {}
+
   '@tanstack/react-cross-context@1.99.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
+  '@tanstack/react-query-devtools@5.66.7(@tanstack/react-query@5.66.7(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@tanstack/query-devtools': 5.65.0
+      '@tanstack/react-query': 5.66.7(react@18.3.1)
+      react: 18.3.1
+
+  '@tanstack/react-query@5.66.7(react@18.3.1)':
+    dependencies:
+      '@tanstack/query-core': 5.66.4
+      react: 18.3.1
+
+  '@tanstack/react-router-with-query@1.106.0(@tanstack/react-query@5.66.7(react@18.3.1))(@tanstack/react-router@1.105.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@tanstack/react-query': 5.66.7(react@18.3.1)
+      '@tanstack/react-router': 1.105.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
@@ -13119,6 +13208,14 @@ snapshots:
   '@ts-rest/core@3.51.0(@types/node@22.10.5)(zod@3.24.1)':
     optionalDependencies:
       '@types/node': 22.10.5
+      zod: 3.24.1
+
+  '@ts-rest/react-query@3.52.0(@tanstack/react-query@5.66.7(react@18.3.1))(@ts-rest/core@3.51.0(@types/node@22.10.5)(zod@3.24.1))(react@18.3.1)(zod@3.24.1)':
+    dependencies:
+      '@tanstack/react-query': 5.66.7(react@18.3.1)
+      '@ts-rest/core': 3.51.0(@types/node@22.10.5)(zod@3.24.1)
+      react: 18.3.1
+    optionalDependencies:
       zod: 3.24.1
 
   '@ts-rest/serverless@3.51.0(@ts-rest/core@3.51.0(@types/node@22.10.5)(zod@3.24.1))(zod@3.24.1)':
@@ -18741,6 +18838,10 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       react-fast-compare: 3.2.2
       shallowequal: 1.1.0
+
+  react-hook-form@7.54.2(react@18.3.1):
+    dependencies:
+      react: 18.3.1
 
   react-is@16.13.1: {}
 
