@@ -24,6 +24,11 @@
       "outputs": ["build/**", ".output/**", ".vinxi/**"],
       "outputLogs": "errors-only"
     },
+    "cd:build": {
+      "dependsOn": ["^build"],
+      "outputs": ["build/**", ".output/**", ".vinxi/**"],
+      "outputLogs": "errors-only"
+    },
     "test": {
       "outputs": ["build/coverage/**"]
     },

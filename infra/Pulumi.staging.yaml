@@ -1,0 +1,9 @@
+encryptionsalt: v1:+Jz2CHSdwgU=:v1:Y0Y54zDFUqkqEtcc:ynKc+vbEzhop9PaA7au6/e+Z9+ZOhw==
+config:
+  gcp:project: atlas-451303
+  gcp:region: us-central1
+  atlas:environment: staging
+  atlas:dotenvStagingKey:
+    secure: v1:gESHau/3mRAsKwOq:KuurNru8vxHnavWFnqK1ktdRzzlXY0FfcwFGX/ZxWALed5OBEQql+Wr5659W3i7WdoR2jMyvL6TqJZYahXY0Ve2DPWb4J92nE4/fxPvYqlQ=
+  atlas:dotenvProductionKey:
+    secure: v1:Jg81aBH2nq4U2plI:MdAhuK8grrXp4NmpaDweiTXBEsbNoq+eri8hpP4zquh8Mt0KadZJ9gNJH+YVkqzFL1nolsuB/QbvSMt031F/6cgZ0nrRqI7bVjEjKTu2bAQ=

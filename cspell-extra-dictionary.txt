@@ -6,6 +6,8 @@ appstrings
 appt
 asynciterable
 authed
+buildpacks
+cloudbuild
 dailyco
 datetime
 depcheckrc
@@ -36,6 +38,9 @@ nextauth
 nextify
 nitropack
 nocheck
+nodenext
+nodir
+permadiff
 Postsubmit
 preinstall
 Presubmit
@@ -45,6 +50,8 @@ radash
 rolldown
 screenshare
 scrollbars
+secretmanager
+serviceaccount
 servicenetworking
 statusz
 Subnetworks

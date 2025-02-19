@@ -1,0 +1,12 @@
+{
+  "name": "",
+  "description": "Faux package so appengine can figure out how to start the already-built web app",
+  "version": "0.0.0",
+  "dependencies": {},
+  "devDependencies": {},
+  "private": true,
+  "scripts": {
+    "start": "cd server && node index.mjs"
+  },
+  "type": "module"
+}

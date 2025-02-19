@@ -28,7 +28,6 @@
 * Push Notifications
   Firebase Messaging
 * Switching environments inside the mobile app
-* Docker + GCP via Pulumi for deployment
 * Fastlane / Metro for pushing to the app stores
 
 ## DevOps
@@ -41,7 +40,6 @@ Only needed if you are manually developing/extending Pulumi code. Otherwise CI/C
 * Enable <https://console.cloud.google.com/apis/library/compute.googleapis.com>
 
 TODO: figure out storage backend (GCS bucket).
-TODO: figure out dotenvx private key injection and loading production fork of config file (if it's even needed)
 
 * Set up gcloud CLI `curl https://sdk.cloud.google.com | bash`
 * Set up default project `gcloud config set project <YOUR_GCP_PROJECT_ID>`
@@ -50,4 +48,3 @@ TODO: figure out dotenvx private key injection and loading production fork of co
 Deployment:
 
 * `pulumi up`
-* `pulumi stack output --show-secrets` to get the database info and populate `apps/web/.env.production` (maybe, could just inject via environment variables directly)

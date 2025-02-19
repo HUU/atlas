@@ -5,15 +5,21 @@
   "dependencies": {
     "@pulumi/gcp": "8.19.1",
     "@pulumi/pulumi": "3.150.0",
-    "@pulumi/random": "4.17.0"
+    "@pulumi/random": "4.17.0",
+    "folder-hash": "4.1.1"
   },
-  "main": "build/index.js",
+  "devDependencies": {
+    "@types/folder-hash": "4.0.4",
+    "rollup": "4.34.8"
+  },
+  "main": "build/pulumi.bundle.js",
   "private": true,
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && rollup build/index.js --file build/pulumi.bundle.js --format es",
     "clean": "rm -rf build",
     "depcheck": "depcheck .",
-    "lint": "eslint \"src/**/*.{js,ts}\""
+    "lint": "eslint \"src/**/*.{js,ts}\"",
+    "pulumi": "pnpm build && pulumi"
   },
   "type": "module"
 }

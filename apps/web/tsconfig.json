@@ -6,6 +6,6 @@
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "types": ["vite/client"]
   },
-  "include": ["src", "*.config.ts", "*.config.mjs", "__tests__/**/*.ts"],
+  "include": ["src", "gcp", "*.config.ts", "*.config.mjs", "__tests__/**/*.ts"],
   "exclude": ["build", "node_modules", "vitest.config.ts"]
 }

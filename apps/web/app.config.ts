@@ -5,6 +5,7 @@ export default defineConfig({
     appDirectory: 'src',
   },
   server: {
+    preset: './gcp', // custom preset to generate a zip that works with CloudRun/AppEngine deployment from source
     plugins: ['./src/boot.ts'],
   },
 }).then((config) =>

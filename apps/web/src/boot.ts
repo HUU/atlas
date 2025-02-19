@@ -17,7 +17,11 @@ function crash(error: unknown): void {
 // eslint-disable-next-line import/no-default-export -- nitro handlers must be default exported
 export default (): void => {
   try {
-    config();
+    const configPath = ['.env', process.env.ATLAS_ENV ?? 'development']
+      .filter(Boolean)
+      .join('.');
+    logger.info('Loading config from', configPath);
+    config({ path: configPath });
     APP_CONFIG.bindTo(envNamesToConfigNames(process.env));
     db.execute(sql`select 1`)
       .execute()
