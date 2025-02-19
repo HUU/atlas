@@ -8,6 +8,9 @@ asynciterable
 authed
 buildpacks
 cloudbuild
+cloudkms
+cloudrun
+cloudrunv
 dailyco
 datetime
 depcheckrc
@@ -22,8 +25,10 @@ DTO
 DTOS
 endtime
 firesafe
+gcpkms
 Gmailerrorred
 GSSP
+gsutil
 haircheck
 healthz
 homescreens

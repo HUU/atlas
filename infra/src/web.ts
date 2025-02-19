@@ -1,18 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars -- Pulumi is declarative */
+import * as docker from '@pulumi/docker';
 import * as gcp from '@pulumi/gcp';
 import * as pulumi from '@pulumi/pulumi';
 import * as random from '@pulumi/random';
-import { hashElement } from 'folder-hash';
-import {
-  dotenvProductionKey,
-  dotenvStagingKey,
-  environment,
-  region,
-} from './config';
+import { secretManagerApi } from './base-services';
+import { dotenvKey, environment, project, region } from './config';
 
 const [nodeMajor] = process.versions.node.split('.').map(Number);
 
-const dotenvKey = new gcp.secretmanager.Secret(
+const dotenvKeySecret = new gcp.secretmanager.Secret(
   `atlas-${environment}-dotenv-key`,
   {
     secretId: `atlas-${environment}-dotenv-key`,
@@ -23,28 +19,21 @@ const dotenvKey = new gcp.secretmanager.Secret(
       auto: {},
     },
   },
+  {
+    dependsOn: [secretManagerApi],
+  },
 );
-
-const dotenvKeyValue = new gcp.secretmanager.SecretVersion(
+const dotenvKeySecretValue = new gcp.secretmanager.SecretVersion(
   `atlas-${environment}-dotenv-key-version`,
   {
-    secret: dotenvKey.id,
-    secretData:
-      environment === 'production'
-        ? dotenvProductionKey
-        : environment === 'staging'
-          ? dotenvStagingKey
-          : '', // this is a required value so Pulumi will error alerting you to a bad config
+    secret: dotenvKeySecret.id,
+    secretData: dotenvKey,
   },
 );
 
 // Public IP not private because using Cloud SQL with a VPC
-// requires private services access ($7/mo just for a proxy)
-// as well as a VM for serverless VPC access ($5/mo) if used with
-// app engine (which is vastly simpler than having to build
-// a container and manage a container register for Cloud Run's
-// direct VPC egress). The result is a crazy $12/mo "hit" just
-// to avoid a public IP ($3/mo).
+// requires private services access ($7/mo just for a proxy).
+// just to avoid a public IP ($3/mo). Will revisit later once this is sort of working
 const sqlInstance = new gcp.sql.DatabaseInstance(
   `atlas-${environment}-instance`,
   {
@@ -62,7 +51,6 @@ const sqlInstance = new gcp.sql.DatabaseInstance(
     region,
   },
 );
-
 const dbUserPassword = new random.RandomPassword('password', {
   length: 16,
   special: true,
@@ -77,30 +65,6 @@ const database = new gcp.sql.Database('atlas-db', {
   instance: sqlInstance.name,
 });
 
-// A GCS bucket for uploading built application bundles
-const dropzoneBucket = new gcp.storage.Bucket(`atlas-${environment}-dropzone`, {
-  location: region,
-  labels: {
-    environment,
-  },
-});
-
-// Upload the built web app, assumes this has already been created by running pnpm cd:build
-const builtWebZip = new gcp.storage.BucketObject(
-  `atlas-${environment}-web-output.zip`,
-  {
-    name: `atlas-${environment}-web-output.zip`, // must end in .zip or the GAE BuildPack explodes trying to figure out how to unzip the file
-    bucket: dropzoneBucket.name,
-    source: new pulumi.asset.FileAsset('../apps/web/.output/deploy.zip'), // we don't use ArchiveAsset because it doesn't follow symlinks, https://github.com/pulumi/pulumi/issues/13349
-  },
-);
-const { hash: webZipHash } = await hashElement(
-  '../apps/web/.output/deploy.zip',
-  {
-    encoding: 'hex', // version IDs must be in [A-Za-z0-9-]
-  },
-);
-
 // A custom service account for running everything
 const serviceAccount = new gcp.serviceaccount.Account(
   `atlas-${environment}-web`,
@@ -109,106 +73,90 @@ const serviceAccount = new gcp.serviceaccount.Account(
     displayName: `Atlas Web (${environment})`,
   },
 );
-const gaeApi = new gcp.projects.IAMMember('gae_api', {
-  project: serviceAccount.project,
-  role: 'roles/compute.networkUser',
-  member: pulumi.interpolate`serviceAccount:${serviceAccount.email}`,
-});
-const storageViewer = new gcp.projects.IAMMember('storage_viewer', {
-  project: serviceAccount.project,
-  role: 'roles/storage.objectViewer',
-  member: pulumi.interpolate`serviceAccount:${serviceAccount.email}`,
-});
 const secretAccessor = new gcp.projects.IAMMember('secret_accessor', {
   project: serviceAccount.project,
   role: 'roles/secretmanager.secretAccessor',
   member: pulumi.interpolate`serviceAccount:${serviceAccount.email}`,
 });
 
-// AppEngine "takes over" the entire cloud project so you need to use this
-// with a dedicated project. We could deploy staging | production | other things
-// in different services but you always have to have this dumb "default" service
-// for AppEngine which makes it super awkward. Multiple projects isn't a bad idea
-// so we just do it. This could be avoided by switching to Cloud Run in the future
-// if this suddenly becomes a real problem or blocker....but I really want to
-// avoid Docker nonsense.
-const appEngineApp = new gcp.appengine.Application(`atlas-${environment}-web`, {
-  // oh my god https://cloud.google.com/appengine/docs/standard/locations
-  locationId:
-    region === 'us-central1'
-      ? 'us-central'
-      : region === 'europe-west1'
-        ? 'europe-west'
-        : region,
+const webImage = new docker.Image(`atlas-${environment}-web-image`, {
+  imageName: pulumi.interpolate`gcr.io/${project}/atlas-web-${environment}:latest`,
+  build: {
+    context: '../apps/web/.output/',
+    platform: 'linux/amd64',
+  },
 });
-
-const service = new gcp.appengine.StandardAppVersion(
-  `atlas-${environment}-web-service`,
+const webService = new gcp.cloudrunv2.Service(
+  `atlas-${environment}-web-cloudrun`,
   {
-    service: 'default',
-    runtime: `nodejs${nodeMajor}`,
-    versionId: webZipHash,
-    entrypoint: {
-      shell: 'npm run start',
-    },
-    handlers: [
-      // there is a permadiff here because the AppEngine API always returns a weird default handler, oh well
-      // https://github.com/hashicorp/terraform-provider-google/issues/13766 example of others struggling with this
-      {
-        authFailAction: 'AUTH_FAIL_ACTION_REDIRECT',
-        login: 'LOGIN_OPTIONAL',
-        urlRegex: '.*',
-        script: {
-          scriptPath: 'auto',
+    name: `atlas-${environment}-web`,
+    location: region,
+    deletionProtection: false,
+    ingress: 'INGRESS_TRAFFIC_ALL',
+    template: {
+      serviceAccount: serviceAccount.email,
+      scaling: {
+        maxInstanceCount: 1,
+      },
+      containers: [
+        {
+          image: webImage.imageName,
+          envs: [
+            {
+              name: 'POSTGRES_HOST',
+              value: sqlInstance.publicIpAddress,
+            },
+            {
+              name: 'POSTGRES_DB',
+              value: database.name,
+            },
+            {
+              name: 'POSTGRES_USER',
+              value: dbUser.name,
+            },
+            {
+              name: 'POSTGRES_PASSWORD',
+              value: dbUserPassword.result,
+            },
+            {
+              name: `DOTENV_PRIVATE_KEY_${environment.toUpperCase()}`,
+              valueSource: {
+                secretKeyRef: {
+                  secret: dotenvKeySecret.secretId,
+                  version: dotenvKeySecretValue.version,
+                },
+              },
+            },
+          ],
+          resources: {
+            limits: {
+              cpu: '1',
+              memory: '512Mi',
+            },
+          },
         },
-        securityLevel: 'SECURE_ALWAYS',
+      ],
+    },
+    traffics: [
+      {
+        type: 'TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST',
+        percent: 100,
       },
     ],
-    automaticScaling: {
-      standardSchedulerSettings: {
-        maxInstances: 1,
-      },
-    },
-    envVariables: {
-      ATLAS_ENV: environment,
-      POSTGRES_HOST: sqlInstance.publicIpAddress,
-      POSTGRES_DB: database.name,
-      POSTGRES_USER: dbUser.name,
-      POSTGRES_PASSWORD: dbUserPassword.result,
-      [`DOTENV_PRIVATE_KEY_${environment.toUpperCase()}`]: dotenvKeyValue.name,
-      //DATABASE_URL: pulumi.interpolate`postgres://${sqlInstance.connectionName}/${database.name}`,
-    },
-    deployment: {
-      zip: {
-        sourceUrl: pulumi.interpolate`https://storage.googleapis.com/${dropzoneBucket.name}/${builtWebZip.name}`,
-      },
-    },
-    serviceAccount: serviceAccount.email,
   },
 );
 
-const trafficSplit = new gcp.appengine.EngineSplitTraffic(
-  `atlas-${environment}-traffic-split`,
-  {
-    service: service.service,
-    migrateTraffic: true,
-    split: {
-      shardBy: 'IP',
-      allocations: service.versionId.apply((versionId) => {
-        return {
-          [versionId ?? 'latest']: '1.0',
-        };
-      }),
-    },
-  },
-);
+const iamWebService = new gcp.cloudrun.IamMember('allow-everyone', {
+  service: webService.name,
+  location: region,
+  role: 'roles/run.invoker',
+  member: 'allUsers',
+});
 
 export const dbIpAddress = sqlInstance.publicIpAddress;
 export const dbName = database.name;
 export const dbUsername = dbUser.name;
 export const dbPassword = dbUserPassword.result;
-export const dropzoneBucketName = dropzoneBucket.name;
-export const deployedZip = builtWebZip.outputName;
-export const appEngineServiceAccount = serviceAccount.email;
-export const appEngineServiceVersion = webZipHash;
-export const dotEnvVaultSecret = dotenvKeyValue.name;
+export const serviceAccountEmail = serviceAccount.email;
+export const dotEnvVaultSecret = dotenvKeySecretValue.name;
+export const webServiceUrls = webService.urls;

@@ -32,18 +32,16 @@
 
 ## DevOps
 
-### Pulumi (WIP)
+### Pulumi
 
 Only needed if you are manually developing/extending Pulumi code. Otherwise CI/CD should take care of it and there is no need for this.
 
 * Create a GCP project and billing account, enable billing.
-* Enable <https://console.cloud.google.com/apis/library/compute.googleapis.com>
-
-TODO: figure out storage backend (GCS bucket).
-
 * Set up gcloud CLI `curl https://sdk.cloud.google.com | bash`
 * Set up default project `gcloud config set project <YOUR_GCP_PROJECT_ID>`
 * Set up ADC credentials `gcloud auth application-default login`
+* Set up Docker push access `gcloud auth configure-docker`
+* Run `infra/init.sh` to bootstrap Pulumi state bucket and confirm everything is ready to go.
 
 Deployment:
 
