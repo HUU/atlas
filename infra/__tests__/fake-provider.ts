@@ -1,4 +1,7 @@
+import * as gcp from '@pulumi/gcp';
 import * as pulumi from '@pulumi/pulumi';
+import * as random from '@pulumi/random';
+import { resourceType } from './helpers';
 
 await pulumi.runtime.setMocks(
   {
@@ -11,17 +14,17 @@ await pulumi.runtime.setMocks(
       // ...only support the subset used by our environment variable
       // tests.
       switch (args.type) {
-        case 'gcp:sql/databaseInstance:DatabaseInstance':
+        case resourceType(gcp.sql.DatabaseInstance):
           extras = {
             publicIpAddress: '1.2.3.4',
           };
           break;
-        case 'gcp:sql/database:Database':
+        case resourceType(gcp.sql.Database):
           extras = {
             name: 'database-name',
           };
           break;
-        case 'random:index/randomPassword:RandomPassword':
+        case resourceType(random.RandomPassword):
           extras = {
             result: 'password',
           };
