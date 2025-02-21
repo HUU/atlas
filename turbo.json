@@ -38,6 +38,9 @@
     "lint": {
       "outputLogs": "errors-only"
     },
+    "check-config": {
+      "outputLogs": "errors-only"
+    },
     "depcheck": { "outputLogs": "errors-only" },
     "//#lint:json": { "outputLogs": "new-only" },
     "//#lint:markdown": { "outputLogs": "new-only" },

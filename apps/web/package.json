@@ -28,6 +28,7 @@
     "vinxi": "0.5.1"
   },
   "devDependencies": {
+    "@atlas/infra": "workspace:*",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
     "@vitejs/plugin-react": "4.3.4",
@@ -37,6 +38,7 @@
   "scripts": {
     "build": "vinxi build",
     "cd:build": "pnpm build",
+    "check-config": "vitest run --reporter=dot \"__tests__/config.test.ts\"",
     "clean": "rm -rf .output .vinxi",
     "depcheck": "depcheck .",
     "dev": "vinxi dev",

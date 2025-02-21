@@ -13,10 +13,16 @@
     "@types/folder-hash": "4.0.4",
     "rollup": "4.34.8"
   },
-  "main": "build/pulumi.bundle.js",
+  "exports": {
+    "./stack-info": {
+      "types": "./src/stack-info.ts",
+      "import": "./build/src/stack-info.js"
+    }
+  },
+  "main": "build/src/pulumi.bundle.js",
   "private": true,
   "scripts": {
-    "build": "tsc && rollup build/index.js --file build/pulumi.bundle.js --format es",
+    "build": "tsc && rollup build/src/index.js --file build/src/pulumi.bundle.js --format es",
     "clean": "rm -rf build",
     "depcheck": "depcheck .",
     "lint": "eslint \"src/**/*.{js,ts}\"",

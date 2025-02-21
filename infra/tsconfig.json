@@ -4,6 +4,6 @@
     "baseUrl": "./",
     "outDir": "build"
   },
-  "include": ["src"],
+  "include": ["src", "__tests__/**/*.ts"],
   "exclude": ["build", "node_modules"]
 }

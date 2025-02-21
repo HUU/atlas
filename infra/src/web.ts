@@ -4,159 +4,253 @@ import * as gcp from '@pulumi/gcp';
 import * as pulumi from '@pulumi/pulumi';
 import * as random from '@pulumi/random';
 import { secretManagerApi } from './base-services';
-import { dotenvKey, environment, project, region } from './config';
 
-const [nodeMajor] = process.versions.node.split('.').map(Number);
+export class AtlasWebService extends pulumi.ComponentResource {
+  public readonly dbIpAddress: pulumi.Output<string>;
+  public readonly dbName: pulumi.Output<string>;
+  public readonly dbUsername: pulumi.Output<string>;
+  public readonly dbPassword: pulumi.Output<string>;
+  public readonly serviceAccountEmail: pulumi.Output<string>;
+  public readonly dotEnvVaultSecret: pulumi.Output<string>;
+  public readonly serviceUrls: pulumi.Output<string[]>;
+  public readonly serviceEnvironmentVariables: pulumi.Output<
+    Record<string, string>
+  >;
 
-const dotenvKeySecret = new gcp.secretmanager.Secret(
-  `atlas-${environment}-dotenv-key`,
-  {
-    secretId: `atlas-${environment}-dotenv-key`,
-    labels: {
-      environment,
+  constructor(
+    name: string,
+    args: {
+      project: pulumi.Input<string>;
+      region: pulumi.Input<string>;
+      environment: pulumi.Input<string>;
+      dotenvKey: pulumi.Input<string>;
+      dockerRootPath: pulumi.Input<string>;
     },
-    replication: {
-      auto: {},
-    },
-  },
-  {
-    dependsOn: [secretManagerApi],
-  },
-);
-const dotenvKeySecretValue = new gcp.secretmanager.SecretVersion(
-  `atlas-${environment}-dotenv-key-version`,
-  {
-    secret: dotenvKeySecret.id,
-    secretData: dotenvKey,
-  },
-);
+    opts: pulumi.ComponentResourceOptions = {},
+  ) {
+    super('atlas:WebService', name, {}, opts);
 
-// Public IP not private because using Cloud SQL with a VPC
-// requires private services access ($7/mo just for a proxy).
-// just to avoid a public IP ($3/mo). Will revisit later once this is sort of working
-const sqlInstance = new gcp.sql.DatabaseInstance(
-  `atlas-${environment}-instance`,
-  {
-    databaseVersion: 'POSTGRES_14',
-    settings: {
-      tier: 'db-f1-micro',
-      backupConfiguration: {
-        enabled: true,
-        startTime: '00:00', // Set the time for daily backups
+    const dotenvKeySecret = new gcp.secretmanager.Secret(
+      `${name}-dotenv-key`,
+      {
+        secretId: `${name}-dotenv-key`,
+        labels: {
+          environment: args.environment,
+        },
+        replication: {
+          auto: {},
+        },
       },
-      userLabels: {
-        environment,
+      {
+        dependsOn: [secretManagerApi],
+        parent: this,
       },
-    },
-    region,
-  },
-);
-const dbUserPassword = new random.RandomPassword('password', {
-  length: 16,
-  special: true,
-  overrideSpecial: '!#$%&*()-_=+[]{}<>:?',
-});
-const dbUser = new gcp.sql.User('atlas-web-db-user', {
-  instance: sqlInstance.name,
-  name: 'atlas-web-db-user',
-  password: dbUserPassword.result,
-});
-const database = new gcp.sql.Database('atlas-db', {
-  instance: sqlInstance.name,
-});
+    );
+    const dotenvKeySecretValue = new gcp.secretmanager.SecretVersion(
+      `${name}-dotenv-key-value`,
+      {
+        secret: dotenvKeySecret.id,
+        secretData: args.dotenvKey,
+      },
+      {
+        parent: this,
+      },
+    );
 
-// A custom service account for running everything
-const serviceAccount = new gcp.serviceaccount.Account(
-  `atlas-${environment}-web`,
-  {
-    accountId: `atlas-${environment}-web`,
-    displayName: `Atlas Web (${environment})`,
-  },
-);
-const secretAccessor = new gcp.projects.IAMMember('secret_accessor', {
-  project: serviceAccount.project,
-  role: 'roles/secretmanager.secretAccessor',
-  member: pulumi.interpolate`serviceAccount:${serviceAccount.email}`,
-});
-
-const webImage = new docker.Image(`atlas-${environment}-web-image`, {
-  imageName: pulumi.interpolate`gcr.io/${project}/atlas-web-${environment}:latest`,
-  build: {
-    context: '../apps/web/.output/',
-    platform: 'linux/amd64',
-  },
-});
-const webService = new gcp.cloudrunv2.Service(
-  `atlas-${environment}-web-cloudrun`,
-  {
-    name: `atlas-${environment}-web`,
-    location: region,
-    deletionProtection: false,
-    ingress: 'INGRESS_TRAFFIC_ALL',
-    template: {
-      serviceAccount: serviceAccount.email,
-      scaling: {
-        maxInstanceCount: 1,
+    // Public IP not private because using Cloud SQL with a VPC
+    // requires private services access ($7/mo just for a proxy).
+    // just to avoid a public IP ($3/mo). Will revisit later once this is sort of working
+    const sqlInstance = new gcp.sql.DatabaseInstance(
+      `${name}-postgres`,
+      {
+        databaseVersion: 'POSTGRES_14',
+        settings: {
+          tier: 'db-f1-micro',
+          backupConfiguration: {
+            enabled: true,
+            startTime: '00:00', // Set the time for daily backups
+          },
+          userLabels: {
+            environment: args.environment,
+          },
+        },
+        region: args.region,
       },
-      containers: [
-        {
-          image: webImage.imageName,
-          envs: [
+      {
+        parent: this,
+      },
+    );
+    const dbUserPassword = new random.RandomPassword(
+      'password',
+      {
+        length: 16,
+        special: true,
+        overrideSpecial: '!#$%&*()-_=+[]{}<>:?',
+      },
+      {
+        parent: this,
+      },
+    );
+    const dbUser = new gcp.sql.User(
+      `${name}-db-user`,
+      {
+        instance: sqlInstance.name,
+        name: 'atlas-web-db-user',
+        password: dbUserPassword.result,
+      },
+      {
+        parent: this,
+      },
+    );
+    const database = new gcp.sql.Database(
+      `${name}-db`,
+      {
+        instance: sqlInstance.name,
+      },
+      {
+        parent: this,
+      },
+    );
+
+    // A custom service account for running everything
+    const serviceAccount = new gcp.serviceaccount.Account(
+      `${name}-service-account`,
+      {
+        accountId: `svc-${name}`,
+        displayName: name,
+      },
+      {
+        parent: this,
+      },
+    );
+    const secretAccessor = new gcp.projects.IAMMember(
+      `${name}-secret-accessor`,
+      {
+        project: serviceAccount.project,
+        role: 'roles/secretmanager.secretAccessor',
+        member: pulumi.interpolate`serviceAccount:${serviceAccount.email}`,
+      },
+      {
+        parent: this,
+      },
+    );
+
+    const webImage = new docker.Image(
+      `${name}-image`,
+      {
+        imageName: pulumi.interpolate`gcr.io/${args.project}/${name}:latest`,
+        build: {
+          context: args.dockerRootPath,
+          platform: 'linux/amd64',
+        },
+      },
+      {
+        parent: this,
+      },
+    );
+    const environmentVariables = [
+      {
+        name: 'POSTGRES_HOST',
+        value: sqlInstance.publicIpAddress,
+      },
+      {
+        name: 'POSTGRES_DB',
+        value: database.name,
+      },
+      {
+        name: 'POSTGRES_USER',
+        value: dbUser.name,
+      },
+      {
+        name: 'POSTGRES_PASSWORD',
+        value: dbUserPassword.result,
+      },
+      {
+        name: pulumi
+          .output(args.environment)
+          .apply((s) => `DOTENV_PRIVATE_KEY_${s.toUpperCase()}`),
+        valueSource: {
+          secretKeyRef: {
+            secret: dotenvKeySecret.secretId,
+            version: dotenvKeySecretValue.version,
+          },
+        },
+      },
+    ];
+    const webService = new gcp.cloudrunv2.Service(
+      `${name}-cloudrun`,
+      {
+        name,
+        location: args.region,
+        deletionProtection: false,
+        ingress: 'INGRESS_TRAFFIC_ALL',
+        template: {
+          serviceAccount: serviceAccount.email,
+          scaling: {
+            maxInstanceCount: 1,
+          },
+          containers: [
             {
-              name: 'POSTGRES_HOST',
-              value: sqlInstance.publicIpAddress,
-            },
-            {
-              name: 'POSTGRES_DB',
-              value: database.name,
-            },
-            {
-              name: 'POSTGRES_USER',
-              value: dbUser.name,
-            },
-            {
-              name: 'POSTGRES_PASSWORD',
-              value: dbUserPassword.result,
-            },
-            {
-              name: `DOTENV_PRIVATE_KEY_${environment.toUpperCase()}`,
-              valueSource: {
-                secretKeyRef: {
-                  secret: dotenvKeySecret.secretId,
-                  version: dotenvKeySecretValue.version,
+              image: webImage.imageName,
+              envs: environmentVariables,
+              resources: {
+                limits: {
+                  cpu: '1',
+                  memory: '512Mi',
                 },
               },
             },
           ],
-          resources: {
-            limits: {
-              cpu: '1',
-              memory: '512Mi',
-            },
-          },
         },
-      ],
-    },
-    traffics: [
-      {
-        type: 'TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST',
-        percent: 100,
+        traffics: [
+          {
+            type: 'TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST',
+            percent: 100,
+          },
+        ],
       },
-    ],
-  },
-);
+      {
+        parent: this,
+      },
+    );
 
-const iamWebService = new gcp.cloudrun.IamMember('allow-everyone', {
-  service: webService.name,
-  location: region,
-  role: 'roles/run.invoker',
-  member: 'allUsers',
-});
+    const iamWebService = new gcp.cloudrun.IamMember(
+      `${name}-allow-everyone`,
+      {
+        service: webService.name,
+        location: args.region,
+        role: 'roles/run.invoker',
+        member: 'allUsers',
+      },
+      {
+        parent: this,
+      },
+    );
 
-export const dbIpAddress = sqlInstance.publicIpAddress;
-export const dbName = database.name;
-export const dbUsername = dbUser.name;
-export const dbPassword = dbUserPassword.result;
-export const serviceAccountEmail = serviceAccount.email;
-export const dotEnvVaultSecret = dotenvKeySecretValue.name;
-export const webServiceUrls = webService.urls;
+    this.dbIpAddress = sqlInstance.publicIpAddress;
+    this.dbName = database.name;
+    this.dbUsername = dbUser.name;
+    this.dbPassword = dbUserPassword.result;
+    this.serviceAccountEmail = serviceAccount.email;
+    this.dotEnvVaultSecret = dotenvKeySecretValue.name;
+    this.serviceUrls = webService.urls;
+    this.serviceEnvironmentVariables = pulumi
+      .all(environmentVariables)
+      .apply((vars) =>
+        Object.fromEntries(
+          vars.map((env) => [env.name, env.valueSource ? 'SECRET' : env.value]),
+        ),
+      );
+
+    this.registerOutputs({
+      dbIpAddress: this.dbIpAddress,
+      dbName: this.dbName,
+      dbUsername: this.dbUsername,
+      dbPassword: this.dbPassword,
+      serviceAccountEmail: this.serviceAccountEmail,
+      dotEnvVaultSecret: this.dotEnvVaultSecret,
+      serviceUrls: this.serviceUrls,
+      serviceEnvironmentVariables: this.serviceEnvironmentVariables,
+    });
+  }
+}

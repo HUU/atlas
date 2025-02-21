@@ -17,9 +17,9 @@ function crash(error: unknown): void {
 // eslint-disable-next-line import/no-default-export -- nitro handlers must be default exported
 export default (): void => {
   try {
-    const configPath = ['.env', process.env.ATLAS_ENV ?? 'development']
-      .filter(Boolean)
-      .join('.');
+    const configPath = ['.env', process.env.ATLAS_ENV ?? 'development'].join(
+      '.',
+    );
     logger.info('Loading config from', configPath);
     config({ path: configPath });
     APP_CONFIG.bindTo(envNamesToConfigNames(process.env));

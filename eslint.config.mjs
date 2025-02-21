@@ -92,6 +92,9 @@ export default [
       // this misfires all the time and gets mad at nothing like simple import/export statements
       '@typescript-eslint/prefer-destructuring': 'off',
 
+      // regularly needed to implement overrides and overloads
+      '@typescript-eslint/no-unnecessary-type-parameters': 'off',
+
       // the default here is straight up developer-hostile and makes JS less pleasant
       '@typescript-eslint/strict-boolean-expressions': [
         'error',
@@ -165,6 +168,21 @@ export default [
     rules: {
       // a lot of config files use default exports
       'import/no-default-export': 'off',
+    },
+  },
+  {
+    name: 'atlas/tests',
+    files: ['**/*.test.ts', '**/__tests__/**/*.ts'],
+    rules: {
+      // it's a test, idgaf
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/no-unsafe-type-assertion': 'off',
+      'max-nested-callbacks': 'off',
+      'no-console': 'off',
     },
   },
   prettierRecommended,

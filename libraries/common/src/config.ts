@@ -1,4 +1,4 @@
-import { camel } from 'radash';
+import { camel, objectify } from 'radash';
 import { z } from 'zod';
 import { GlobalSingleton } from './globals';
 
@@ -8,7 +8,7 @@ class ConfigProvider {
 
   readerFor<T extends z.ZodTypeAny>(
     _schema: T,
-  ): z.infer<T> & { bindTo: (data: unknown) => void } {
+  ): z.infer<T> & { bindTo: (data: unknown) => void; schema: T } {
     /* eslint-disable @typescript-eslint/no-unsafe-return -- proxy blindly accesses underlying config which is type-checked at the actual call site where this value get used */
     return new Proxy(
       {},
@@ -22,8 +22,11 @@ class ConfigProvider {
                server(nodejs) stuff like process. Hence when you go to bind, the
                schema has probably not been registered and the system explodes.
                This allows you to import the finalized config object and call bind
-               on that ensuring finalizeSchema has happened without "useless" imports. */
+               on that ensuring finalizeSchema has happened without "side effect" imports. 
+               just to register the schema before hand. */
             return Reflect.get(this, key).bind(this);
+          } else if (key === 'schema') {
+            return _schema;
           } else if (this.actualConfig == null) {
             throw new Error(
               'App config read before being bound to a source. Call `bindTo` earlier in the application.',
@@ -50,7 +53,10 @@ class ConfigProvider {
         'merge' | 'extend'
       >,
     ) => z.ZodObject<T>,
-  ): z.infer<z.ZodObject<T>> & { bindTo: (data: unknown) => void } {
+  ): z.infer<z.ZodObject<T>> & {
+    bindTo: (data: unknown) => void;
+    schema: z.ZodObject<T>;
+  } {
     const schema = schemaGenerator(z.object({}));
     this.globalSchema = schema;
     return this.readerFor(schema);
@@ -80,4 +86,34 @@ export function envNamesToConfigNames(
     result[camel(key)] = value;
   }
   return result;
+}
+
+export function assertConfigIsValidOrThrow<T extends z.ZodRawShape>(
+  configReader: { schema: z.ZodObject<T> },
+  blob: NodeJS.ProcessEnv,
+  options?: { errorMessage?: string },
+): void {
+  const { error } = configReader.schema.safeParse(envNamesToConfigNames(blob));
+
+  if (error) {
+    const issueSummary = objectify(
+      error.issues,
+      (issue) => issue.path.join('.'),
+      (issue) => issue.message,
+    );
+    const keyColumnSize =
+      Math.max(...Object.keys(issueSummary).map((k) => k.length)) + 1;
+
+    throw new Error(
+      options?.errorMessage ??
+        'Configuration does not parse correctly.' +
+          '\n' +
+          Object.entries(issueSummary)
+            .map(
+              ([key, errorMessage]) =>
+                `- ${key.padEnd(keyColumnSize)}: ${errorMessage}`,
+            )
+            .join('\n'),
+    );
+  }
 }
