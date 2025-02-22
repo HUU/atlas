@@ -28,4 +28,6 @@ export * from './schema';
 
 export const migrationsPath: string | undefined =
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- import.meta.dirname is undefined when running inside a bundle like production
-  import.meta.dirname != null ? `${import.meta.dirname}/migrations` : undefined;
+  import.meta.dirname != null
+    ? `${import.meta.dirname}/../migrations`
+    : undefined;

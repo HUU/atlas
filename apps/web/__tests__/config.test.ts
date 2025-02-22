@@ -9,6 +9,7 @@ describe('staging configuration', () => {
     const pulumiEnvVars = await crackOpen(
       webServiceStaging.serviceEnvironmentVariables,
     );
+
     const { parsed: dotEnvVars } = config({ path: '.env.staging' });
 
     const effectiveEnvVars = {

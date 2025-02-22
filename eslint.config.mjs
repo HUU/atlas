@@ -1,8 +1,10 @@
 import { includeIgnoreFile } from '@eslint/compat';
+import json from '@eslint/json';
 import love from 'eslint-config-love';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import atlas from './tools/custom-eslint-plugin/index.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -183,6 +185,23 @@ export default [
       '@typescript-eslint/no-unsafe-type-assertion': 'off',
       'max-nested-callbacks': 'off',
       'no-console': 'off',
+    },
+  },
+  {
+    name: 'atlas/json',
+    files: ['**/package.json'],
+    language: 'json/json',
+    plugins: {
+      json,
+      atlas,
+    },
+    rules: {
+      'atlas/only-jit-packages': [
+        'error',
+        {
+          buildOutputDirectories: ['./build/**'],
+        },
+      ],
     },
   },
   prettierRecommended,

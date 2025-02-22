@@ -4,6 +4,8 @@
 
 ### Code Complete
 
+* MCP servers for PgSql (maybe others?) and Codium/Cursor rules to make AI not insane.
+* Some ADR structure / directory for decision logs and so forth.
 * NativeWind + component library
 * TailWind component library (raw Radix? Flowbite?)
 * Web UI testing (Cypress?)

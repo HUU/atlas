@@ -105,15 +105,14 @@ export function assertConfigIsValidOrThrow<T extends z.ZodRawShape>(
       Math.max(...Object.keys(issueSummary).map((k) => k.length)) + 1;
 
     throw new Error(
-      options?.errorMessage ??
-        'Configuration does not parse correctly.' +
-          '\n' +
-          Object.entries(issueSummary)
-            .map(
-              ([key, errorMessage]) =>
-                `- ${key.padEnd(keyColumnSize)}: ${errorMessage}`,
-            )
-            .join('\n'),
+      (options?.errorMessage ?? 'Configuration does not parse correctly.') +
+        '\n' +
+        Object.entries(issueSummary)
+          .map(
+            ([key, errorMessage]) =>
+              `- ${key.padEnd(keyColumnSize)}: ${errorMessage}`,
+          )
+          .join('\n'),
     );
   }
 }
