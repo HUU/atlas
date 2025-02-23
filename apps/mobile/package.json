@@ -53,9 +53,10 @@
   "private": true,
   "scripts": {
     "android": "expo run:android",
+    "check": "echo $NODE_ENV",
     "clean": "rm -rf .expo",
     "depcheck": "depcheck .",
-    "dev": "expo start",
+    "dev": "APP_VARIANT=development expo start",
     "ios": "expo run:ios",
     "lint": "tsc && pnpm eslint \"src/**/*.{js,ts,tsx}\" \"*.js\"",
     "start": "expo start",
