@@ -11,7 +11,8 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.huu.atlas"
+      "bundleIdentifier": "com.huu.atlas",
+      "appleTeamId": "B3AKT6Y43P"
     },
     "android": {
       "adaptiveIcon": {

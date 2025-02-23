@@ -26,7 +26,6 @@
   * MixPanel is fine too.
 * Push Notifications
   * Firebase Messaging
-* Switching environments inside the mobile app
 * Fastlane (or Expo?) for pushing to the app stores
 
 ## Alternatives Considered

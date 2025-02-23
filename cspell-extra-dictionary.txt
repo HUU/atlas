@@ -51,6 +51,7 @@ permadiff
 pgtyped
 Postsubmit
 preinstall
+Pressable
 Presubmit
 PTSD
 pulumi

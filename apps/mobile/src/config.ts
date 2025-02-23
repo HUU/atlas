@@ -8,4 +8,5 @@ function readConfigOrDie(value?: string): string {
 
 export const config = {
   publicApiUrl: readConfigOrDie(process.env.EXPO_PUBLIC_API_URL),
+  stagingApiUrl: readConfigOrDie(process.env.EXPO_PUBLIC_API_URL_STAGING),
 };
