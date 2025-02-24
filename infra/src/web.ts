@@ -166,6 +166,10 @@ export class AtlasWebService extends pulumi.ComponentResource {
         value: dbUserPassword.result,
       },
       {
+        name: 'ATLAS_ENV',
+        value: args.environment,
+      },
+      {
         name: pulumi
           .output(args.environment)
           .apply((s) => `DOTENV_PRIVATE_KEY_${s.toUpperCase()}`),

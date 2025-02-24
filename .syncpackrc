@@ -30,13 +30,13 @@
       "label": "use adze for logging (install @atlas/common)"
     },
     {
-      "dependencies": ["lodash", "underscore"],
+      "dependencies": ["lodash", "underscore", "radash"],
       "isBanned": true,
-      "label": "use radash for functional helpers (install @atlas/common)"
+      "label": "use radashi for functional helpers (install @atlas/common)"
     },
     {
       "packages": ["!@atlas/common"],
-      "dependencies": ["adze", "radash", "date-fns", "zod"],
+      "dependencies": ["adze", "radashi", "date-fns", "zod"],
       "isBanned": true,
       "label": "use @atlas/common to access common dependencies"
     }

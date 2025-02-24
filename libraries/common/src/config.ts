@@ -1,4 +1,4 @@
-import { camel, objectify } from 'radash';
+import { camel, objectify } from 'radashi';
 import { z } from 'zod';
 import { GlobalSingleton } from './globals';
 
@@ -7,7 +7,7 @@ class ConfigProvider {
   private actualConfig?: object;
 
   readerFor<T extends z.ZodTypeAny>(
-    _schema: T,
+    schema: T,
   ): z.infer<T> & { bindTo: (data: unknown) => void; schema: T } {
     /* eslint-disable @typescript-eslint/no-unsafe-return -- proxy blindly accesses underlying config which is type-checked at the actual call site where this value get used */
     return new Proxy(
@@ -24,9 +24,11 @@ class ConfigProvider {
                This allows you to import the finalized config object and call bind
                on that ensuring finalizeSchema has happened without "side effect" imports. 
                just to register the schema before hand. */
-            return Reflect.get(this, key).bind(this);
+            return (data: unknown): void => {
+              Reflect.get(this, key).bind(this)(schema, data);
+            };
           } else if (key === 'schema') {
-            return _schema;
+            return schema;
           } else if (this.actualConfig == null) {
             throw new Error(
               'App config read before being bound to a source. Call `bindTo` earlier in the application.',
@@ -62,14 +64,9 @@ class ConfigProvider {
     return this.readerFor(schema);
   }
 
-  bindTo(data: unknown): void {
-    if (this.globalSchema == null) {
-      throw new Error(
-        'App config bound before schema registered. Call `finalizeSchema` before any usage of `bindTo.`',
-      );
-    }
-
-    this.actualConfig = this.globalSchema.parse(data); // this implicitly populates defaults too
+  bindTo<T extends z.ZodTypeAny>(schema: T, data: unknown): void {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- type checking is performed by Zod parser
+    this.actualConfig = { ...this.actualConfig, ...schema.parse(data) }; // this implicitly populates defaults too
   }
 }
 

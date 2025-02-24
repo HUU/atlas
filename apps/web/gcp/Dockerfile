@@ -5,5 +5,6 @@ WORKDIR /atlas
 
 COPY . ./
 
+ENV NODE_ENV=production
 WORKDIR /atlas/server
 CMD ["index.mjs"]

@@ -1,6 +1,6 @@
+import { apiClient } from '@/api';
 import { createFileRoute } from '@tanstack/react-router';
 import * as React from 'react';
-import { apiClient } from '../api';
 
 export const Route = createFileRoute('/')({
   component: Home,

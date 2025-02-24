@@ -11,6 +11,7 @@
 * Web UI testing (Cypress?)
 * Mobile testing (Jest? why why why)
 * Authentication overall (API OAuth, Web+Mobile using Google and Apple authentication)
+* Storybook for component development
 
 ### Production Readiness
 

@@ -34,7 +34,7 @@
     /* Developer Niceties */
     "preserveWatchOutput": true,
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     }
   }
 }

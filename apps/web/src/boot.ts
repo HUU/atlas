@@ -7,7 +7,7 @@ import { sql } from 'drizzle-orm';
 import { migrate } from 'drizzle-orm/node-postgres/migrator';
 import { globSync } from 'glob';
 import { APP_CONFIG } from './config';
-import { logger } from './logger';
+import { logger } from './observability/logger';
 
 function crash(error: unknown): void {
   logger.error(error);
@@ -20,9 +20,9 @@ export default (): void => {
     const configPath = ['.env', process.env.ATLAS_ENV ?? 'development'].join(
       '.',
     );
-    logger.info('Loading config from', configPath);
     config({ path: configPath });
     APP_CONFIG.bindTo(envNamesToConfigNames(process.env));
+    logger.info('Loaded config', configPath);
     db.execute(sql`select 1`)
       .execute()
       .then(() => {
