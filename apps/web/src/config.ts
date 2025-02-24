@@ -8,9 +8,6 @@ const appConfigSchemaFragment = CONFIG_PROVIDER.partialSchema({
     .default('development'),
 });
 
-export const CLIENT_SAFE_CONFIG = CONFIG_PROVIDER.readerFor(
-  appConfigSchemaFragment,
-);
 export const APP_CONFIG = CONFIG_PROVIDER.finalizeSchema((schemaBuilder) => {
   return schemaBuilder
     .merge(databaseConfigSchemaFragment)

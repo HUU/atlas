@@ -12,16 +12,17 @@
 * Mobile testing (Jest? why why why)
 * Authentication overall (API OAuth, Web+Mobile using Google and Apple authentication)
 * Storybook for component development
+* Custom rollup extension to inject "client safe" configs into client bundles; hoist bindTo to top of client.
 
 ### Production Readiness
 
+* Finish OTel + logging set up
+  * Custom Metrics POC
+  * "Wide log" for HTTP requests compatible with GCP monitoring
+  * OTel exporter in Pulumi stack
 * APM (crashes)
   * Sentry is the only real choice here.
   * Try first: Crashlytics to limit vendor sprawl?
-* Metrics+Logs
-  * GCP + Firebase seems to be fine for this
-  * Everything else is expensive.
-  * Something OTel based probably otherwise.
 * Product Analytics
   * should probably just use an off-the-shelf tool like PostHog or Firebase
   * MixPanel is fine too.

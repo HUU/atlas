@@ -53,7 +53,6 @@
   "private": true,
   "scripts": {
     "android": "expo run:android",
-    "check": "echo $NODE_ENV",
     "clean": "rm -rf .expo",
     "depcheck": "depcheck .",
     "dev": "APP_VARIANT=development expo start",
