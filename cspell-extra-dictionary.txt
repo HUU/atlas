@@ -41,6 +41,7 @@ knexfile
 kyseley
 loggable
 maxage
+Millis
 nextauth
 nextify
 nitropack

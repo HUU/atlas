@@ -12,12 +12,10 @@
 * Mobile testing (Jest? why why why)
 * Authentication overall (API OAuth, Web+Mobile using Google and Apple authentication)
 * Storybook for component development
-* Custom rollup extension to inject "client safe" configs into client bundles; hoist bindTo to top of client.
 
 ### Production Readiness
 
 * Finish OTel + logging set up
-  * Custom Metrics POC
   * "Wide log" for HTTP requests compatible with GCP monitoring
   * OTel exporter in Pulumi stack
 * APM (crashes)
