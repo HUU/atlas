@@ -4,6 +4,7 @@
 
 ### Code Complete
 
+* Refactor Web Nitro extensions (server preset, opentelemetry, config module) into a library
 * Hoist dotenvx config bootstrapping to top of server init using a Nitro module
 * NativeWind + component library
 * TailWind component library (raw Radix? Flowbite?)
