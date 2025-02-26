@@ -40,7 +40,7 @@
     "clean": "turbo clean",
     "dev": "turbo watch dev --ui tui",
     "fix": "(syncpack format; e1=$?; pnpm turbo lint lint:root -- --fix; e2=$?; pnpm prettier --write '**/*.(yml|json)' .syncpackrc; e3=$?; [ $e1 = 0 ] && [ $e2 = 0 ] && [ $e3 = 0 ])",
-    "lint": "turbo lint lint:json lint:markdown lint:spelling lint:syncpack lint:root check-config",
+    "lint": "turbo lint lint:json lint:markdown lint:spelling lint:syncpack lint:root check-config depcheck",
     "lint:json": "(prettier --check '**/*.(yml|json)' .syncpackrc; e1=$?; pnpm eslint '**/*.json' --max-warnings=0; e2=$?; [ $e1 = 0 ] && [ $e2 = 0 ])",
     "lint:markdown": "markdownlint-cli2 '**/*.md' '#**/node_modules' '#**/.expo' '#**/ios' '#**/android'",
     "lint:root": "eslint '*.{ts,js,mjs}' 'tools/**/*.{ts,js,mjs}' --max-warnings=0",

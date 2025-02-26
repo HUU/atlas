@@ -4,29 +4,37 @@
 
 ### Code Complete
 
-* MCP servers for PgSql (maybe others?) and Codium/Cursor rules to make AI not insane.
-* Some ADR structure / directory for decision logs and so forth.
+* Hoist dotenvx config bootstrapping to top of server init using a Nitro module
 * NativeWind + component library
 * TailWind component library (raw Radix? Flowbite?)
+* Add form example to web and mobile, remove react-hook-form .depcheckrc exemptions
 * Web UI testing (Cypress?)
 * Mobile testing (Jest? why why why)
-* Authentication overall (API OAuth, Web+Mobile using Google and Apple authentication)
 * Storybook for component development
+
+Nice to have:
+
+* * Authentication overall (API OAuth, Web+Mobile using Google and Apple authentication)
 
 ### Production Readiness
 
 * Finish OTel + logging set up
   * "Wide log" for HTTP requests compatible with GCP monitoring
   * OTel exporter in Pulumi stack
-* APM (crashes)
-  * Sentry is the only real choice here.
-  * Try first: Crashlytics to limit vendor sprawl?
-* Product Analytics
-  * should probably just use an off-the-shelf tool like PostHog or Firebase
-  * MixPanel is fine too.
-* Push Notifications
-  * Firebase Messaging
+* Firebase it up
+  * Crashlytics (sentry alt)
+  * GA (PostHog alt)
+  * Remote Config (PostHog alt)
+  * FCM (push notifications)
 * Fastlane (or Expo?) for pushing to the app stores
+* Wire up deploys into deploy.yml workflow
+
+### Wrap Up
+
+* Documentation
+  * Complete README
+  * MCP servers for PgSql (maybe others?) and Codium/Cursor rules to make AI not insane.
+  * Some ADR structure / directory for decision logs and so forth.
 
 ## Alternatives Considered
 

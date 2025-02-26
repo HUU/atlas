@@ -3,8 +3,6 @@
   "description": "Shared helper functions and a base-class-library extensions.",
   "version": "0.0.0",
   "dependencies": {
-    "adze": "2.2.0",
-    "date-fns": "4.1.0",
     "radashi": "12.3.4",
     "zod": "3.24.1"
   },

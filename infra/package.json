@@ -6,12 +6,11 @@
     "@pulumi/docker": "4.6.1",
     "@pulumi/gcp": "8.19.1",
     "@pulumi/pulumi": "3.150.0",
-    "@pulumi/random": "4.17.0",
-    "folder-hash": "4.1.1"
+    "@pulumi/random": "4.17.0"
   },
   "devDependencies": {
-    "@types/folder-hash": "4.0.4",
-    "rollup": "4.34.8"
+    "rollup": "4.34.8",
+    "vitest": "3.0.2"
   },
   "exports": {
     "./stack-info": {

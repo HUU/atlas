@@ -1,2 +1,2 @@
-ignores: ["@vitejs/plugin-react", "pg"]
+ignores: ["@vitejs/plugin-react", "pg", "tailwindcss", "postcss", "autoprefixer", "react-hook-form"]
 ignore-patterns: [".vinxi/","app.config.timestamp*"]

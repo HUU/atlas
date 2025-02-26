@@ -8,7 +8,7 @@ import adze, {
   StandardFormatter,
 } from 'adze';
 import type { Configuration } from 'adze/dist/configuration';
-import { crush, pick } from 'radashi';
+import * as _ from 'radashi';
 
 const GCP_LOGGING_OPERATION_KEY = 'logging.googleapis.com/operation';
 
@@ -95,8 +95,8 @@ class OpenTelemetrySpanMiddleware extends Middleware {
     // Removes GCP_LOGGING_OPERATION_KEY, then recursively crushes log data i.e
     // args[0].name = 'hello' becomes 'args.0.name': 'hello' and finally removes
     // anything left that isn't a bool/number/string as demanded by OTel
-    return pick(
-      crush(pick(obj, (_, key) => key !== GCP_LOGGING_OPERATION_KEY)),
+    return _.pick(
+      _.crush(_.pick(obj, (_, key) => key !== GCP_LOGGING_OPERATION_KEY)),
       (value) => ['string', 'boolean', 'number'].includes(typeof value),
     );
   }

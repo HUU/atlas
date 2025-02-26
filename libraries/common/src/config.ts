@@ -1,4 +1,4 @@
-import { camel, objectify } from 'radashi';
+import * as _ from 'radashi';
 import { z } from 'zod';
 import { GlobalSingleton } from './globals';
 
@@ -80,7 +80,7 @@ export function envNamesToConfigNames(
 ): Record<string, unknown> {
   const result: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(blob)) {
-    result[camel(key)] = value;
+    result[_.camel(key)] = value;
   }
   return result;
 }
@@ -93,7 +93,7 @@ export function assertConfigIsValidOrThrow<T extends z.ZodRawShape>(
   const { error } = configReader.schema.safeParse(envNamesToConfigNames(blob));
 
   if (error) {
-    const issueSummary = objectify(
+    const issueSummary = _.objectify(
       error.issues,
       (issue) => issue.path.join('.'),
       (issue) => issue.message,
