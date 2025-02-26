@@ -13,7 +13,11 @@ export default defineConfig({
     appDirectory: 'src',
   },
   server: {
-    preset: './gcp', // custom preset to generate a zip that works with CloudRun/AppEngine deployment from source
+    // custom preset to generate a zip that works with CloudRun/AppEngine deployment from source
+    preset: './gcp',
+    // note these plugins run in a custom vinxi vite ssr "environment" when booting the dev server
+    // not Nitro. This means a ton of "nitro features" just straight up don't work, like
+    // vite ts import aliases
     plugins: ['./src/boot.ts', './src/observability/opentelemetry.ts'],
   },
 }).then((config) => {

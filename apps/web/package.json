@@ -44,6 +44,8 @@
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
     "@vitejs/plugin-react": "4.3.4",
+    "magic-string": "0.30.17",
+    "mlly": "1.7.4",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.0.2"
   },
@@ -54,11 +56,11 @@
     "check-config": "vitest run --reporter=dot \"__tests__/config.test.ts\"",
     "clean": "rm -rf .output .vinxi",
     "depcheck": "depcheck .",
-    "dev": "vinxi dev",
+    "dev": "dotenvx run -f .env.development -- pnpm vinxi dev",
     "lint": "tsc && pnpm eslint \"src/**/*.{js,ts,tsx,jsx}\" \"*.{mjs,ts}\"",
     "set-secret": "dotenvx set",
-    "start": "vinxi start",
-    "test": "vitest run"
+    "start": "dotenvx run -f .env.development -- pnpm vinxi start",
+    "test": "dotenvx run -f .env.development -- pnpm vitest run"
   },
   "type": "module"
 }

@@ -9,6 +9,7 @@ import adze, {
 } from 'adze';
 import type { Configuration } from 'adze/dist/configuration';
 import * as _ from 'radashi';
+import { APP_CONFIG } from '../config';
 
 const GCP_LOGGING_OPERATION_KEY = 'logging.googleapis.com/operation';
 
@@ -136,10 +137,7 @@ setup({
   formatters: {
     gcp: GoogleCloudMonitoringFormatter,
   },
-  format:
-    import.meta.env.NODE_ENV === 'production' || import.meta.env.PROD
-      ? 'gcp'
-      : 'pretty',
+  format: APP_CONFIG.nodeEnv === 'production' ? 'gcp' : 'pretty',
   meta: {
     name: 'com.huu.atlas',
   },

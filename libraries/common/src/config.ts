@@ -5,6 +5,7 @@ import { GlobalSingleton } from './globals';
 class ConfigProvider {
   private globalSchema?: z.AnyZodObject;
   private actualConfig?: object;
+  private readonly alreadyBoundFor: z.ZodTypeAny[] = [];
 
   readerFor<T extends z.ZodTypeAny>(
     schema: T,
@@ -29,12 +30,24 @@ class ConfigProvider {
             };
           } else if (key === 'schema') {
             return schema;
-          } else if (this.actualConfig == null) {
-            throw new Error(
-              'App config read before being bound to a source. Call `bindTo` earlier in the application.',
-            );
           } else {
-            return Reflect.get(this.actualConfig, key);
+            if (
+              !this.alreadyBoundFor.includes(schema) &&
+              typeof process === 'object'
+            ) {
+              // just in time binding ensures we don't need  to inject a bindTo call very early in server startup
+              // which is almost impossible with modern frameworks (Nitro/Vinxi). Not support in the browser
+              // obviously since it uses environment variables.
+              this.bindTo(schema, envNamesToConfigNames(process.env));
+            }
+
+            if (this.actualConfig == null) {
+              throw new Error(
+                'App config read before being bound to a source. Call `bindTo` earlier in the application.',
+              );
+            } else {
+              return Reflect.get(this.actualConfig, key);
+            }
           }
         },
       },
@@ -67,6 +80,7 @@ class ConfigProvider {
   bindTo<T extends z.ZodTypeAny>(schema: T, data: unknown): void {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- type checking is performed by Zod parser
     this.actualConfig = { ...this.actualConfig, ...schema.parse(data) }; // this implicitly populates defaults too
+    this.alreadyBoundFor.push(schema);
   }
 }
 

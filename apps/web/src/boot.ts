@@ -1,12 +1,9 @@
 /* eslint-disable @typescript-eslint/no-floating-promises -- Nitro plugins are not async and cannot use await */
 
-import { envNamesToConfigNames } from '@atlas/common';
 import { db, migrationsPath } from '@atlas/database';
-import { config } from '@dotenvx/dotenvx';
 import { sql } from 'drizzle-orm';
 import { migrate } from 'drizzle-orm/node-postgres/migrator';
 import { globSync } from 'glob';
-import { APP_CONFIG } from './config';
 import { logger } from './observability/logger';
 
 function crash(error: unknown): void {
@@ -17,12 +14,6 @@ function crash(error: unknown): void {
 // eslint-disable-next-line import/no-default-export -- nitro handlers must be default exported
 export default (): void => {
   try {
-    const configPath = ['.env', process.env.ATLAS_ENV ?? 'development'].join(
-      '.',
-    );
-    config({ path: configPath });
-    APP_CONFIG.bindTo(envNamesToConfigNames(process.env));
-    logger.info('Loaded config', configPath);
     db.execute(sql`select 1`)
       .execute()
       .then(() => {
