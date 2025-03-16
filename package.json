@@ -1,7 +1,6 @@
 {
   "name": "prototype",
   "version": "0.0.0",
-  "//": "devDependencies are for the whole monorepo",
   "devDependencies": {
     "@eslint/compat": "1.2.5",
     "@eslint/json": "0.10.0",
@@ -22,7 +21,7 @@
     "prettier-plugin-organize-imports": "4.1.0",
     "syncpack": "13.0.0",
     "tsconfig-paths": "4.2.0",
-    "turbo": "2.4.2",
+    "turbo": "2.4.4",
     "typescript": "5.7.3",
     "typescript-eslint": "8.19.1",
     "vite-tsconfig-paths": "5.1.4",
@@ -32,7 +31,12 @@
     "node": ">=22.13.0"
   },
   "license": "UNLICENSED",
-  "packageManager": "pnpm@10.2.1",
+  "packageManager": "pnpm@10.6.3",
+  "pnpm": {
+    "overrides": {
+      "zod": "3.24.1"
+    }
+  },
   "private": true,
   "scripts": {
     "build": "turbo build",
@@ -41,7 +45,7 @@
     "dev": "turbo watch dev --ui tui",
     "fix": "(syncpack format; e1=$?; pnpm turbo lint lint:root -- --fix; e2=$?; pnpm prettier --write '**/*.(yml|json)' .syncpackrc; e3=$?; [ $e1 = 0 ] && [ $e2 = 0 ] && [ $e3 = 0 ])",
     "lint": "turbo lint lint:json lint:markdown lint:spelling lint:syncpack lint:root check-config depcheck",
-    "lint:json": "(prettier --check '**/*.(yml|json)' .syncpackrc; e1=$?; pnpm eslint '**/*.json' --max-warnings=0; e2=$?; [ $e1 = 0 ] && [ $e2 = 0 ])",
+    "lint:json": "(prettier --check '**/*.(yml|json)' .syncpackrc; e1=$?; pnpm eslint '**/*.json' --no-error-on-unmatched-pattern --max-warnings=0; e2=$?; [ $e1 = 0 ] && [ $e2 = 0 ])",
     "lint:markdown": "markdownlint-cli2 '**/*.md' '#**/node_modules' '#**/.expo' '#**/ios' '#**/android'",
     "lint:root": "eslint '*.{ts,js,mjs}' 'tools/**/*.{ts,js,mjs}' --max-warnings=0",
     "lint:spelling": "cspell . --gitignore --no-progress",
