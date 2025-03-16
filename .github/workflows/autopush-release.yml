@@ -16,7 +16,7 @@ on:
 
 jobs:
   DeployRelease:
-    uses: ./.github/workflows/deploy-release.yml
+    uses: ./.github/workflows/deploy.yml
     with:
       sha: ${{ github.sha }}
       environment: ${{ (startsWith(github.ref_name, 'production/') && 'production') || (startsWith(github.ref_name, 'staging/') && 'staging') || 'unsupported'  }}

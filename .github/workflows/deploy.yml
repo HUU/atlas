@@ -4,7 +4,7 @@
 # all the complex logic out of this workflow so it can be easily audited.
 #
 # MUST BE CALLED WITH `secrets: inherit` in order to access Deployment Environment
-# secrets...otherwise it will silen5ly run with empty values!
+# secrets...otherwise it will silently run with empty values!
 #
 # MUST BE CALLED WITH `permissions: contents: write` in order be able to update
 # Git tags on successful releases.
