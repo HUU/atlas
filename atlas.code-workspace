@@ -27,6 +27,10 @@
     {
       "name": "Database",
 			"path": "libraries/database"
+		},
+    {
+      "name": "Nitro Extension",
+			"path": "libraries/nitro"
 		}
 	],
 	"settings": {

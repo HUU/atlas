@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "atlas-nitro-deployment-thunk",
   "description": "Faux package so appengine can figure out how to start the already-built web app",
   "version": "0.0.0",
   "dependencies": {},

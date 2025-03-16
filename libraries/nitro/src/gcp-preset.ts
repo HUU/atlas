@@ -1,11 +1,16 @@
+/**
+ * Custom preset to generate output that works with CloudRun/AppEngine deployment
+ * either by packaging into a Zip and uploading to AppEngine or by docker
+ * building and pushing to CloudRun.
+ */
+
 import MagicString from 'magic-string';
-import { resolvePath } from 'mlly';
+import { fileURLToPath, resolvePath } from 'mlly';
 import type { NitroPreset } from 'nitropack';
 import { cp, glob, writeFile } from 'node:fs/promises';
 import * as path from 'node:path';
 import { normalize } from 'node:path';
-import realPackage from '../package.json';
-import packageTemplate from './package.template.json';
+import packageTemplate from '../templates/package.template.json';
 
 async function _copyAssets(
   globPattern: string,
@@ -31,7 +36,7 @@ async function _copyAssets(
 
 async function _savePackageTemplate(filePath: string): Promise<void> {
   const packageObject = { ...packageTemplate };
-  packageObject.name = `${realPackage.name}/gcp`;
+  //packageObject.name = `${realPackage.name}/gcp`;
   await writeFile(filePath, JSON.stringify(packageObject, null, 2));
 }
 
@@ -81,14 +86,30 @@ const preset: NitroPreset = {
     },
 
     async 'compiled'(ctx) {
-      await _copyAssets(
-        '../../libraries/database/migrations',
-        ctx.options.output.serverDir,
+      const templateDir = fileURLToPath(
+        new URL('../templates', import.meta.url),
       );
-      await _copyAssets('.env.*', ctx.options.output.serverDir, {
-        exclude: ['.env.keys'],
-      });
-      await _copyAssets('./gcp/Dockerfile', ctx.options.output.dir);
+
+      if (ctx.options.gcp?.includeFiles) {
+        const copyOptions = {
+          ...(ctx.options.gcp.excludeFiles && {
+            exclude: ctx.options.gcp.excludeFiles,
+          }),
+        };
+
+        for (const includeGlob of ctx.options.gcp.includeFiles) {
+          await _copyAssets(
+            includeGlob,
+            ctx.options.output.serverDir,
+            copyOptions,
+          );
+        }
+      }
+
+      await _copyAssets(
+        path.join(templateDir, 'Dockerfile'),
+        ctx.options.output.dir,
+      );
       await _savePackageTemplate(
         path.join(ctx.options.output.dir, 'package.json'),
       );
@@ -96,4 +117,5 @@ const preset: NitroPreset = {
   },
 };
 
+// eslint-disable-next-line import/no-default-export -- Nitro expects deployment presets to be default exports
 export default preset;

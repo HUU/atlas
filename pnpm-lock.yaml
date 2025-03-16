@@ -219,6 +219,9 @@ importers:
       '@atlas/database':
         specifier: workspace:*
         version: link:../../libraries/database
+      '@atlas/nitro':
+        specifier: workspace:*
+        version: link:../../libraries/nitro
       '@dotenvx/dotenvx':
         specifier: 1.35.0
         version: 1.35.0
@@ -249,15 +252,15 @@ importers:
       '@tanstack/react-router':
         specifier: 1.114.22
         version: 1.114.22(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tanstack/react-router-devtools':
+        specifier: 1.114.22
+        version: 1.114.22(@tanstack/react-router@1.114.22(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@tanstack/router-core@1.114.22)(csstype@3.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tiny-invariant@1.3.3)
       '@tanstack/react-router-with-query':
         specifier: 1.114.22
         version: 1.114.22(@tanstack/react-query@5.66.7(react@18.3.1))(@tanstack/react-router@1.114.22(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@tanstack/router-core@1.114.22)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tanstack/router-devtools':
+      '@tanstack/react-start':
         specifier: 1.114.22
-        version: 1.114.22(@tanstack/react-router@1.114.22(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@tanstack/router-core@1.114.22)(csstype@3.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tiny-invariant@1.3.3)
-      '@tanstack/start':
-        specifier: 1.114.22
-        version: 1.114.22(@types/node@22.10.5)(db0@0.2.4(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1)))(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1))(encoding@0.1.13)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.27.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(typescript@5.7.3)(vite@6.1.0(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0))(webpack@5.98.0)(yaml@2.7.0)
+        version: 1.114.22(@tanstack/react-router@1.114.22(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/node@22.10.5)(db0@0.2.4(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1)))(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1))(encoding@0.1.13)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.27.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(typescript@5.7.3)(vite@6.1.0(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0))(webpack@5.98.0)(yaml@2.7.0)
       '@ts-rest/core':
         specifier: 3.52.1
         version: 3.52.1(@types/node@22.10.5)(zod@3.24.1)
@@ -404,6 +407,58 @@ importers:
       drizzle-kit:
         specifier: 0.30.2
         version: 0.30.2
+      vitest:
+        specifier: 3.0.2
+        version: 3.0.2(@types/node@22.10.5)(jiti@2.4.2)(jsdom@20.0.3)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0)
+
+  libraries/nitro:
+    dependencies:
+      '@dotenvx/dotenvx':
+        specifier: 1.35.0
+        version: 1.35.0
+      '@opentelemetry/api':
+        specifier: 1.9.0
+        version: 1.9.0
+      '@opentelemetry/context-async-hooks':
+        specifier: 1.30.1
+        version: 1.30.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/resources':
+        specifier: 1.30.1
+        version: 1.30.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/sdk-metrics':
+        specifier: 1.30.1
+        version: 1.30.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/sdk-trace-node':
+        specifier: 1.30.1
+        version: 1.30.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/semantic-conventions':
+        specifier: 1.30.0
+        version: 1.30.0
+      date-fns:
+        specifier: 4.1.0
+        version: 4.1.0
+      glob:
+        specifier: 11.0.1
+        version: 11.0.1
+      h3:
+        specifier: 1.13.0
+        version: 1.13.0
+      magic-string:
+        specifier: 0.30.17
+        version: 0.30.17
+      mlly:
+        specifier: 1.7.4
+        version: 1.7.4
+      nitropack:
+        specifier: 2.10.4
+        version: 2.10.4(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1))(encoding@0.1.13)(typescript@5.7.3)
+      radashi:
+        specifier: 12.3.4
+        version: 12.3.4
+      zod:
+        specifier: 3.24.1
+        version: 3.24.1
+    devDependencies:
       vitest:
         specifier: 3.0.2
         version: 3.0.2(@types/node@22.10.5)(jiti@2.4.2)(jsdom@20.0.3)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0)
@@ -3154,6 +3209,14 @@ packages:
       react: '>=18.0.0 || >=19.0.0'
       react-dom: '>=18.0.0 || >=19.0.0'
 
+  '@tanstack/react-start-config@1.114.22':
+    resolution: {integrity: sha512-0gu5pKKW7TG7GBxMRRSLUmy7q6Jv18GTw+6VtHBUTCeQZTnpBmLHVENPco89orGNsdNYFawOyCnMQoY817CiSg==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=18.0.0 || >=19.0.0'
+      react-dom: '>=18.0.0 || >=19.0.0'
+      vite: ^6.0.0
+
   '@tanstack/react-start-plugin@1.114.12':
     resolution: {integrity: sha512-jis/mBFd0RnKiwkLAOV6eD7Wcy5uwFc0u0WycGB9VWlhqmJcTUkmlP3IIVBGoUY3OjeegRoDUWwWbFprUvWW+g==}
     engines: {node: '>=12'}
@@ -3168,6 +3231,14 @@ packages:
     peerDependencies:
       react: '>=18.0.0 || >=19.0.0'
       react-dom: '>=18.0.0 || >=19.0.0'
+
+  '@tanstack/react-start@1.114.22':
+    resolution: {integrity: sha512-8A4K00zyO2cozouvJTKuJMkyDWluxuxTY7E7hILlgMWUEzC0heaIvlhfnjbfeMN/vkDW9potROvxR5r99/7MDg==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=18.0.0 || >=19.0.0'
+      react-dom: '>=18.0.0 || >=19.0.0'
+      vite: ^6.0.0
 
   '@tanstack/react-store@0.7.0':
     resolution: {integrity: sha512-S/Rq17HaGOk+tQHV/yrePMnG1xbsKZIl/VsNWnNXt4XW+tTY8dTlvpJH2ZQ3GRALsusG5K6Q3unAGJ2pd9W/Ng==}
@@ -3187,18 +3258,6 @@ packages:
       csstype: ^3.0.10
       solid-js: '>=1.9.5'
       tiny-invariant: ^1.3.3
-    peerDependenciesMeta:
-      csstype:
-        optional: true
-
-  '@tanstack/router-devtools@1.114.22':
-    resolution: {integrity: sha512-wkT4JjjMRxpHi4+iLlrXMizVPWlBdV5zZCA/Aa8M9is28eIaw4ML+tEC2ckX292zPs0NpySdtPSMD3Ml50TLrQ==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      '@tanstack/react-router': ^1.114.22
-      csstype: ^3.0.10
-      react: '>=18.0.0 || >=19.0.0'
-      react-dom: '>=18.0.0 || >=19.0.0'
     peerDependenciesMeta:
       csstype:
         optional: true
@@ -3249,14 +3308,6 @@ packages:
     resolution: {integrity: sha512-sHt9YrBnQ1qYLtvOc26YXEkPWTGhB7zQbMkehEKcmBAzD2ctm4+i5ZkmQxOtKzGQxgqGP7S4g74uUwrt+L03ow==}
     engines: {node: '>=12'}
 
-  '@tanstack/start-config@1.114.22':
-    resolution: {integrity: sha512-4UKaWqJstktTXh6nmcqkmlGWkBP2Ei225teL5PluDGKB6p4wwzYoe2/64qh4RbjrPc1CS649RcF27kQXA1hPbA==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      react: '>=18.0.0 || >=19.0.0'
-      react-dom: '>=18.0.0 || >=19.0.0'
-      vite: ^6.0.0
-
   '@tanstack/start-server-core@1.114.22':
     resolution: {integrity: sha512-OJoJ8pa4i/KA7idDWDPjWlebhSU01BJhOmw2dmWYqkR3fiZlhd+6OD5768gzVPJyRcGuogk2yJdtR2W2j5KK/Q==}
     engines: {node: '>=12'}
@@ -3279,10 +3330,6 @@ packages:
 
   '@tanstack/start-server-functions-ssr@1.114.22':
     resolution: {integrity: sha512-4O0duQE5AshGHzR8r1srYDvmX9kJHV6SVvsfxDIJ5IVbG810+xVBIz5FrD3NpPr5PeJ9EW5g0rWOeznY0BFI8g==}
-    engines: {node: '>=12'}
-
-  '@tanstack/start@1.114.22':
-    resolution: {integrity: sha512-c9G6ZhUULGGtWDBQnkDlhuPbCHt22/lzcrJCfnY5LPhOIVLFctV3fvgSvAxCTwzieL4MoXPX99vq1pd0qFGNtA==}
     engines: {node: '>=12'}
 
   '@tanstack/store@0.7.0':
@@ -12829,6 +12876,71 @@ snapshots:
       - xml2js
       - yaml
 
+  '@tanstack/react-start-config@1.114.22(@tanstack/react-router@1.114.22(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/node@22.10.5)(db0@0.2.4(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1)))(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1))(encoding@0.1.13)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.27.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(typescript@5.7.3)(vite@6.1.0(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0))(webpack@5.98.0)(yaml@2.7.0)':
+    dependencies:
+      '@tanstack/react-start-plugin': 1.114.12(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0)
+      '@tanstack/router-core': 1.114.22
+      '@tanstack/router-generator': 1.114.22(@tanstack/react-router@1.114.22(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@tanstack/router-plugin': 1.114.22(@tanstack/react-router@1.114.22(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@6.1.0(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0))(webpack@5.98.0)
+      '@tanstack/server-functions-plugin': 1.114.12(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0)
+      '@tanstack/start-server-functions-handler': 1.114.22
+      '@vitejs/plugin-react': 4.3.4(vite@6.1.0(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0))
+      import-meta-resolve: 4.1.0
+      nitropack: 2.10.4(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1))(encoding@0.1.13)(typescript@5.7.3)
+      ofetch: 1.4.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      vinxi: 0.5.3(@types/node@22.10.5)(db0@0.2.4(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1)))(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1))(encoding@0.1.13)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+      vite: 6.1.0(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0)
+      zod: 3.24.1
+    transitivePeerDependencies:
+      - '@azure/app-configuration'
+      - '@azure/cosmos'
+      - '@azure/data-tables'
+      - '@azure/identity'
+      - '@azure/keyvault-secrets'
+      - '@azure/storage-blob'
+      - '@capacitor/preferences'
+      - '@deno/kv'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@netlify/blobs'
+      - '@planetscale/database'
+      - '@rsbuild/core'
+      - '@tanstack/react-router'
+      - '@types/node'
+      - '@upstash/redis'
+      - '@vercel/blob'
+      - '@vercel/kv'
+      - aws4fetch
+      - babel-plugin-macros
+      - better-sqlite3
+      - db0
+      - debug
+      - drizzle-orm
+      - encoding
+      - idb-keyval
+      - ioredis
+      - jiti
+      - less
+      - lightningcss
+      - mysql2
+      - rolldown
+      - sass
+      - sass-embedded
+      - sqlite3
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - typescript
+      - uploadthing
+      - vite-plugin-solid
+      - webpack
+      - xml2js
+      - yaml
+
   '@tanstack/react-start-plugin@1.114.12(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0)':
     dependencies:
       '@babel/code-frame': 7.26.2
@@ -12919,6 +13031,68 @@ snapshots:
       tiny-warning: 1.0.3
       unctx: 2.4.1
 
+  '@tanstack/react-start@1.114.22(@tanstack/react-router@1.114.22(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/node@22.10.5)(db0@0.2.4(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1)))(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1))(encoding@0.1.13)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.27.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(typescript@5.7.3)(vite@6.1.0(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0))(webpack@5.98.0)(yaml@2.7.0)':
+    dependencies:
+      '@tanstack/react-start-client': 1.114.22(@types/node@22.10.5)(db0@0.2.4(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1)))(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1))(encoding@0.1.13)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.27.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+      '@tanstack/react-start-config': 1.114.22(@tanstack/react-router@1.114.22(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/node@22.10.5)(db0@0.2.4(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1)))(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1))(encoding@0.1.13)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.27.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(typescript@5.7.3)(vite@6.1.0(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0))(webpack@5.98.0)(yaml@2.7.0)
+      '@tanstack/react-start-router-manifest': 1.114.22(@types/node@22.10.5)(db0@0.2.4(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1)))(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1))(encoding@0.1.13)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+      '@tanstack/react-start-server': 1.114.22(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tanstack/start-api-routes': 1.114.22(@types/node@22.10.5)(db0@0.2.4(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1)))(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1))(encoding@0.1.13)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+      '@tanstack/start-server-functions-client': 1.114.22(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0)
+      '@tanstack/start-server-functions-handler': 1.114.22
+      '@tanstack/start-server-functions-server': 1.114.12(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0)
+      '@tanstack/start-server-functions-ssr': 1.114.22(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      vite: 6.1.0(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0)
+    transitivePeerDependencies:
+      - '@azure/app-configuration'
+      - '@azure/cosmos'
+      - '@azure/data-tables'
+      - '@azure/identity'
+      - '@azure/keyvault-secrets'
+      - '@azure/storage-blob'
+      - '@capacitor/preferences'
+      - '@deno/kv'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@netlify/blobs'
+      - '@planetscale/database'
+      - '@rsbuild/core'
+      - '@tanstack/react-router'
+      - '@types/node'
+      - '@upstash/redis'
+      - '@vercel/blob'
+      - '@vercel/kv'
+      - aws4fetch
+      - babel-plugin-macros
+      - better-sqlite3
+      - db0
+      - debug
+      - drizzle-orm
+      - encoding
+      - idb-keyval
+      - ioredis
+      - jiti
+      - less
+      - lightningcss
+      - mysql2
+      - rolldown
+      - sass
+      - sass-embedded
+      - sqlite3
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - typescript
+      - uploadthing
+      - vite-plugin-solid
+      - webpack
+      - xml2js
+      - yaml
+
   '@tanstack/react-store@0.7.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@tanstack/store': 0.7.0
@@ -12940,20 +13114,6 @@ snapshots:
       tiny-invariant: 1.3.3
     optionalDependencies:
       csstype: 3.1.3
-
-  '@tanstack/router-devtools@1.114.22(@tanstack/react-router@1.114.22(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@tanstack/router-core@1.114.22)(csstype@3.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tiny-invariant@1.3.3)':
-    dependencies:
-      '@tanstack/react-router': 1.114.22(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tanstack/react-router-devtools': 1.114.22(@tanstack/react-router@1.114.22(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@tanstack/router-core@1.114.22)(csstype@3.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tiny-invariant@1.3.3)
-      clsx: 2.1.1
-      goober: 2.1.16(csstype@3.1.3)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-    optionalDependencies:
-      csstype: 3.1.3
-    transitivePeerDependencies:
-      - '@tanstack/router-core'
-      - tiny-invariant
 
   '@tanstack/router-generator@1.114.22(@tanstack/react-router@1.114.22(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
     dependencies:
@@ -13080,70 +13240,6 @@ snapshots:
       tiny-invariant: 1.3.3
       tiny-warning: 1.0.3
 
-  '@tanstack/start-config@1.114.22(@types/node@22.10.5)(db0@0.2.4(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1)))(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1))(encoding@0.1.13)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.27.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(typescript@5.7.3)(vite@6.1.0(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0))(webpack@5.98.0)(yaml@2.7.0)':
-    dependencies:
-      '@tanstack/react-router': 1.114.22(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tanstack/react-start-plugin': 1.114.12(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0)
-      '@tanstack/router-generator': 1.114.22(@tanstack/react-router@1.114.22(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
-      '@tanstack/router-plugin': 1.114.22(@tanstack/react-router@1.114.22(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@6.1.0(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0))(webpack@5.98.0)
-      '@tanstack/server-functions-plugin': 1.114.12(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0)
-      '@tanstack/start-server-functions-handler': 1.114.22
-      '@vitejs/plugin-react': 4.3.4(vite@6.1.0(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0))
-      import-meta-resolve: 4.1.0
-      nitropack: 2.10.4(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1))(encoding@0.1.13)(typescript@5.7.3)
-      ofetch: 1.4.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      vinxi: 0.5.3(@types/node@22.10.5)(db0@0.2.4(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1)))(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1))(encoding@0.1.13)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
-      vite: 6.1.0(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0)
-      zod: 3.24.1
-    transitivePeerDependencies:
-      - '@azure/app-configuration'
-      - '@azure/cosmos'
-      - '@azure/data-tables'
-      - '@azure/identity'
-      - '@azure/keyvault-secrets'
-      - '@azure/storage-blob'
-      - '@capacitor/preferences'
-      - '@deno/kv'
-      - '@electric-sql/pglite'
-      - '@libsql/client'
-      - '@netlify/blobs'
-      - '@planetscale/database'
-      - '@rsbuild/core'
-      - '@types/node'
-      - '@upstash/redis'
-      - '@vercel/blob'
-      - '@vercel/kv'
-      - aws4fetch
-      - babel-plugin-macros
-      - better-sqlite3
-      - db0
-      - debug
-      - drizzle-orm
-      - encoding
-      - idb-keyval
-      - ioredis
-      - jiti
-      - less
-      - lightningcss
-      - mysql2
-      - rolldown
-      - sass
-      - sass-embedded
-      - sqlite3
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-      - tsx
-      - typescript
-      - uploadthing
-      - vite-plugin-solid
-      - webpack
-      - xml2js
-      - yaml
-
   '@tanstack/start-server-core@1.114.22':
     dependencies:
       '@tanstack/history': 1.114.22
@@ -13225,67 +13321,6 @@ snapshots:
       - supports-color
       - terser
       - tsx
-      - yaml
-
-  '@tanstack/start@1.114.22(@types/node@22.10.5)(db0@0.2.4(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1)))(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1))(encoding@0.1.13)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.27.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(typescript@5.7.3)(vite@6.1.0(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0))(webpack@5.98.0)(yaml@2.7.0)':
-    dependencies:
-      '@tanstack/react-start-client': 1.114.22(@types/node@22.10.5)(db0@0.2.4(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1)))(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1))(encoding@0.1.13)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.27.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
-      '@tanstack/react-start-router-manifest': 1.114.22(@types/node@22.10.5)(db0@0.2.4(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1)))(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1))(encoding@0.1.13)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
-      '@tanstack/react-start-server': 1.114.22(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tanstack/start-api-routes': 1.114.22(@types/node@22.10.5)(db0@0.2.4(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1)))(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1))(encoding@0.1.13)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
-      '@tanstack/start-config': 1.114.22(@types/node@22.10.5)(db0@0.2.4(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1)))(drizzle-orm@0.38.4(@opentelemetry/api@1.9.0)(@types/react@18.3.12)(pg@8.13.1)(react@18.3.1))(encoding@0.1.13)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.27.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(typescript@5.7.3)(vite@6.1.0(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0))(webpack@5.98.0)(yaml@2.7.0)
-      '@tanstack/start-server-functions-client': 1.114.22(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0)
-      '@tanstack/start-server-functions-handler': 1.114.22
-      '@tanstack/start-server-functions-server': 1.114.12(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0)
-      '@tanstack/start-server-functions-ssr': 1.114.22(@types/node@22.10.5)(jiti@2.4.2)(lightningcss@1.27.0)(sass@1.85.0)(terser@5.39.0)(tsx@4.19.2)(yaml@2.7.0)
-    transitivePeerDependencies:
-      - '@azure/app-configuration'
-      - '@azure/cosmos'
-      - '@azure/data-tables'
-      - '@azure/identity'
-      - '@azure/keyvault-secrets'
-      - '@azure/storage-blob'
-      - '@capacitor/preferences'
-      - '@deno/kv'
-      - '@electric-sql/pglite'
-      - '@libsql/client'
-      - '@netlify/blobs'
-      - '@planetscale/database'
-      - '@rsbuild/core'
-      - '@types/node'
-      - '@upstash/redis'
-      - '@vercel/blob'
-      - '@vercel/kv'
-      - aws4fetch
-      - babel-plugin-macros
-      - better-sqlite3
-      - db0
-      - debug
-      - drizzle-orm
-      - encoding
-      - idb-keyval
-      - ioredis
-      - jiti
-      - less
-      - lightningcss
-      - mysql2
-      - react
-      - react-dom
-      - rolldown
-      - sass
-      - sass-embedded
-      - sqlite3
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-      - tsx
-      - typescript
-      - uploadthing
-      - vite
-      - vite-plugin-solid
-      - webpack
-      - xml2js
       - yaml
 
   '@tanstack/store@0.7.0': {}

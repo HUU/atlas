@@ -10,6 +10,10 @@
 //
 // this is a compromise where under dev we use the dotenvx CLI and in prod
 // we inject something that behaves almost identically...good enough!
+//
+// once tanstack start removes vinxi, this may be fixable because nitro
+// entrypoint modification may be possible when using the "pure" nitro dev
+// server rather than the bastardized lookalike that is vinxi dev.
 
 import { config } from '@dotenvx/dotenvx';
 const configPath = ['.env', process.env.ATLAS_ENV ?? 'development'].join('.');

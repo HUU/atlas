@@ -1,0 +1,47 @@
+{
+  "name": "@atlas/nitro",
+  "description": "Extensions for Nitro that add GCP support, Atlas Config loading, OpenTelemetry, and more.",
+  "version": "0.0.0",
+  "dependencies": {
+    "@dotenvx/dotenvx": "1.35.0",
+    "@opentelemetry/api": "1.9.0",
+    "@opentelemetry/context-async-hooks": "1.30.1",
+    "@opentelemetry/resources": "1.30.1",
+    "@opentelemetry/sdk-metrics": "1.30.1",
+    "@opentelemetry/sdk-trace-node": "1.30.1",
+    "@opentelemetry/semantic-conventions": "1.30.0",
+    "date-fns": "4.1.0",
+    "h3": "1.13.0",
+    "magic-string": "0.30.17",
+    "mlly": "1.7.4",
+    "nitropack": "2.10.4",
+    "radashi": "12.3.4"
+  },
+  "devDependencies": {
+    "vitest": "3.0.2"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/types.d.ts"
+    },
+    "./opentelemetry": {
+      "types": "./src/opentelemetry.ts",
+      "import": "./src/opentelemetry.ts",
+      "require": "./src/opentelemetry.ts",
+      "//": "./require-needed-by-vinxi-as-it-uses-require-dumb-dumb-dumb"
+    },
+    "./gcp-preset": {
+      "types": "./src/gcp-preset.ts",
+      "import": "./src/gcp-preset.ts"
+    }
+  },
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf build",
+    "depcheck": "depcheck .",
+    "lint": "eslint \"src/**/*.{js,ts}\" \"*.ts\"",
+    "test": "vitest run"
+  },
+  "type": "module"
+}

@@ -4,7 +4,7 @@
     "baseUrl": "./",
     "noEmit": true,
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "types": ["vite/client"]
+    "types": ["vite/client", "@atlas/nitro"]
   },
   "include": ["src", "gcp", "*.config.ts", "*.config.mjs", "__tests__/**/*.ts"],
   "exclude": ["build", "node_modules", "vitest.config.ts"]

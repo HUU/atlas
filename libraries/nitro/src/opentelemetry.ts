@@ -1,11 +1,9 @@
 import {
   type Attributes,
-  type Context,
   context,
   metrics,
   propagation,
   ROOT_CONTEXT,
-  type Span,
   SpanKind,
   trace,
 } from '@opentelemetry/api';
@@ -43,19 +41,7 @@ import {
 } from 'h3';
 import { defineNitroPlugin } from 'nitropack/dist/runtime/plugin';
 import * as _ from 'radashi';
-import { version } from '../../package.json';
-
-declare module 'h3' {
-  // eslint-disable-next-line @typescript-eslint/naming-convention -- augment existing interface
-  interface H3Event {
-    otel: {
-      span: Span;
-      endTime?: Date;
-      ctx: Context;
-      startTime: Date;
-    };
-  }
-}
+import packageJson from '../package.json';
 
 // eslint-disable-next-line import/no-default-export -- Nitro plugins use defaults I think
 export default defineNitroPlugin((nitro) => {
@@ -63,7 +49,7 @@ export default defineNitroPlugin((nitro) => {
   const provider = new NodeTracerProvider({
     resource: new Resource({
       [ATTR_SERVICE_NAME]: 'atlas',
-      [ATTR_SERVICE_VERSION]: version,
+      [ATTR_SERVICE_VERSION]: packageJson.version,
     }),
   });
   const batchingSpanProcessor = new BatchSpanProcessor(
@@ -84,7 +70,7 @@ export default defineNitroPlugin((nitro) => {
   });
   metrics.setGlobalMeterProvider(meterProvider);
 
-  const meter = metrics.getMeter('atlas.nitro', version);
+  const meter = metrics.getMeter('atlas.nitro', packageJson.version);
 
   const requestCounter = meter.createCounter('http.server.request.count', {
     description: 'Counts all incoming requests',
