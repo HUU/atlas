@@ -25,6 +25,7 @@ DSLs
 DTO
 DTOS
 endtime
+esbuild
 firesafe
 gcpkms
 Gmailerrorred

@@ -1,4 +1,6 @@
 packages:
-  - 'apps/*'
-  - 'libraries/*'
-  - 'infra'
+  - apps/*
+  - libraries/*
+  - infra
+onlyBuiltDependencies:
+  - esbuild
