@@ -4,6 +4,6 @@
     "baseUrl": "./",
     "noEmit": true
   },
-  "include": ["vitest.*.ts", ".prettierrc.js"],
+  "include": ["vitest.*.ts", ".prettierrc.js", "tools/**/*.ts"],
   "exclude": ["build", "node_modules"]
 }

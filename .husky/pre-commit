@@ -3,8 +3,8 @@ set -e
 # don't spam about turbo updates since they constantly have a new version
 export TURBO_NO_UPDATE_NOTIFIER=true
 
+pnpm tsx tools/lockfile-check.ts
 pnpm build
 pnpm lint
 
 (cd libraries/database && pnpm --silent db:generateMigrationsAndVerifyNoChanges)
-# TODO: automatically check .env config schema

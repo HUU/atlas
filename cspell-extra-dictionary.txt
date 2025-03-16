@@ -36,6 +36,7 @@ homescreens
 hookform
 idgaf
 interruptible
+Jsons
 knex
 knexfile
 kyseley
