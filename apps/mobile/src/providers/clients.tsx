@@ -21,8 +21,7 @@ export const api = initTsrReactQuery(contract, {
     if (SWITCH_TO_STAGING) {
       args.path = args.path.replace(config.publicApiUrl, config.stagingApiUrl);
     }
-    const result = await tsRestFetchApi(args);
-    return result;
+    return await tsRestFetchApi(args);
   },
 });
 

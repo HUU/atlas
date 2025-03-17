@@ -28,11 +28,13 @@
       "types": "./src/opentelemetry.ts",
       "import": "./src/opentelemetry.ts",
       "require": "./src/opentelemetry.ts",
+      "default": "./src/opentelemetry.ts",
       "//": "./require-needed-by-vinxi-as-it-uses-require-dumb-dumb-dumb"
     },
     "./gcp-preset": {
       "types": "./src/gcp-preset.ts",
-      "import": "./src/gcp-preset.ts"
+      "import": "./src/gcp-preset.ts",
+      "default": "./src/gcp-preset.ts"
     }
   },
   "private": true,

@@ -22,11 +22,9 @@ export default function Index(): ReactElement {
       ) : error ? (
         <Text>Failed to retrieve API result.</Text>
       ) : (
-        <>
-          <Text>
-            {data?.status} - {data?.body.message}
-          </Text>
-        </>
+        <Text>
+          {data?.status} - {data?.body.message}
+        </Text>
       )}
       <Text
         onPress={() => {

@@ -1,6 +1,7 @@
 import { useSession } from '@/providers/auth';
 import { Redirect, SplashScreen, Stack } from 'expo-router';
 import type { ReactElement } from 'react';
+import React from 'react';
 
 export default function AppLayout(): ReactElement {
   const { session, isLoading } = useSession();

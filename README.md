@@ -8,7 +8,6 @@
 * TailWind component library (raw Radix? Flowbite?)
 * Add form example to web and mobile, remove react-hook-form .depcheckrc exemptions
 * Web UI testing (Cypress?)
-* Mobile testing (Jest? why why why)
 * Storybook for component development
 
 Nice to have:
@@ -68,4 +67,9 @@ Nice to have:
 * Config Management (winner: dotenvx)
   * Pulumi Environment Variables: TODO
   * GCP Secret Manager: TODO
-  
+* TS Scripts Runtime (winner: TSX)
+  * ts-node: blows with ES Modules and way too much config, slow.
+    * exception: ts-node is needed to utilize `jest.config.ts` instead of raw JS Jest configs.
+* Test Runner (winner: vitest)
+  * jest: Requires a crap load of configuration to make ES Modules and transpilation work, slow
+    * exception: React Native testing requires Jest, there are many many many mocks and bindings from Expo/RN that have no Vitest equivalent.

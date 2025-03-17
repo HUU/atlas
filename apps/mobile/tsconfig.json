@@ -6,6 +6,11 @@
     "lib": ["DOM", "ESNext"],
     "jsx": "react-native"
   },
+  "ts-node": {
+    "compilerOptions": {
+      "moduleResolution": "node"
+    }
+  },
   "include": [
     "**/*.js",
     "**/*.ts",

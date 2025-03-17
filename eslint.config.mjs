@@ -174,7 +174,13 @@ export default [
   },
   {
     name: 'atlas/tests',
-    files: ['**/*.test.ts', '**/__tests__/**/*.ts'],
+    files: [
+      '**/*.test.ts',
+      '**/*.test.tsx',
+      '**/__tests__/**/*.ts',
+      '**/__tests__/**/*.tsx',
+      '**/__mocks__/**/*.ts',
+    ],
     rules: {
       // it's a test, idgaf
       '@typescript-eslint/no-explicit-any': 'off',

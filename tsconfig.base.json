@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    /* Compiler Output Control */
     "composite": false,
     "declaration": true,
     "declarationMap": true,
@@ -13,8 +12,6 @@
     "jsx": "react-jsx",
     "allowJs": true,
     "experimentalDecorators": true,
-
-    /* Module Handling */
     "module": "ESNext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
@@ -22,16 +19,12 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": true,
-
-    /* Stylistic Rules and Enforcement */
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "allowUnusedLabels": false,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-
-    /* Developer Niceties */
     "preserveWatchOutput": true,
     "paths": {
       "@/*": ["./src/*"]

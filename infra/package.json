@@ -15,7 +15,8 @@
   "exports": {
     "./stack-info": {
       "types": "./src/stack-info.ts",
-      "import": "./src/stack-info.js"
+      "import": "./src/stack-info.js",
+      "default": "./src/stack-info.ts"
     }
   },
   "main": "build/src/pulumi.bundle.js",
