@@ -1,4 +1,5 @@
-import type { JestConfigWithTsJest } from 'ts-jest';
+import { type JestConfigWithTsJest, pathsToModuleNameMapper } from 'ts-jest';
+import { compilerOptions } from '../../tsconfig.base.json';
 
 const config: JestConfigWithTsJest = {
   // note that we have to define a `default` export type in every package.json in the workspace
@@ -13,8 +14,7 @@ const config: JestConfigWithTsJest = {
     'node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg|@atlas/.*)',
   ],
   moduleNameMapper: {
-    // TODO: use the jest method to map this I guess and figure out why it no work.
-    '^@/(.*)': '<rootDir>/src/$1',
+    ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>' }),
   },
   setupFilesAfterEnv: ['<rootDir>/__tests__/setup.ts'],
   testMatch: [
